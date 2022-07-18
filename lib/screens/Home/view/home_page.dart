@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shiro_bot/config/app_route_config.dart';
 import 'package:shiro_bot/constants/string_constant.dart';
+import 'package:shiro_bot/screens/Auth/providers/registration_provider.dart';
 import 'package:shiro_bot/screens/Home/controller/session_controller.dart';
 import 'package:shiro_bot/screens/Home/view/subpages/liquid_flask_page.dart';
 import 'package:shiro_bot/widgets/app_dialogs.dart';
@@ -50,10 +51,11 @@ class _HomePageState extends State<HomePage> {
                       height: 150,
                       width: 150,
                     ),
+
                     Align(
                       alignment: Alignment.topRight,
                       child: LogoutButton(),
-                    )
+                    ),
                   ],
                 ),
                 const SizedBox(height: 30),
@@ -62,6 +64,19 @@ class _HomePageState extends State<HomePage> {
                   fontSize: 26,
                   fontWeight: FontWeight.w700,
                 ),
+                Consumer<RegistrationProvider>(
+                  builder: (context, value, child) {
+                    return GestureDetector(
+                      onTap: () {
+                        value.logout(context);
+                      },
+                      child: Container(
+                        child: Text('Logout'),
+                      ),
+                    );
+                  },
+                ),
+
                 const SizedBox(height: 10),
                 const Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 0),

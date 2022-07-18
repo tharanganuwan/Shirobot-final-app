@@ -1,7 +1,11 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:shiro_bot/components/custom_dialogBox.dart';
 import 'package:shiro_bot/constants/app_colors.dart';
 import 'package:shiro_bot/constants/app_images.dart';
+import 'package:shiro_bot/screens/Auth/controller/auth_controller.dart';
 import 'package:shiro_bot/widgets/app_dialogs.dart';
 import 'package:shiro_bot/widgets/app_text.dart';
 import 'package:shiro_bot/widgets/app_text_form.dart';
@@ -17,7 +21,7 @@ class ResetPassword extends StatefulWidget {
 
 class _ResetPasswordState extends State<ResetPassword> {
   bool isInstructionSent = false;
-
+  final _email = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,6 +94,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                         ///
                         if (!isInstructionSent)
                           AppTextFormField(
+                            controller: _email,
                             hintText: "Email",
                             keyboardType: TextInputType.emailAddress,
                             onChanged: (value) {},
@@ -133,10 +138,20 @@ class _ResetPasswordState extends State<ResetPassword> {
                         if (!isInstructionSent)
                           BlueGradientButton(
                             text: "Send Instructions",
-                            onTap: () {
+                            onTap: () async {
                               AppDialogs.showSuccessDialog(context);
                               isInstructionSent = true;
-                              setState(() {});
+                              if (inputValidation()) {
+                                await AuthController().sendPasswordResetEmail(
+                                    context, _email.text);
+                              } else {
+                                DialogBox().dialogBox(
+                                  context,
+                                  DialogType.ERROR,
+                                  'Incorrect Email',
+                                  'Please enter correct email',
+                                );
+                              }
                             },
                           ),
 
@@ -162,5 +177,17 @@ class _ResetPasswordState extends State<ResetPassword> {
         ),
       ),
     );
+  }
+
+  bool inputValidation() {
+    var isValid = false;
+    if (_email.text.isEmpty) {
+      isValid = false;
+    } else if (!EmailValidator.validate(_email.text)) {
+      isValid = false;
+    } else {
+      isValid = true;
+    }
+    return isValid;
   }
 }
