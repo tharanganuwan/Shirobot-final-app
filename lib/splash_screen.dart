@@ -4,6 +4,7 @@ import 'package:shiro_bot/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:shiro_bot/constants/app_images.dart';
 import 'package:shiro_bot/screens/Auth/providers/registration_provider.dart';
+import 'package:shiro_bot/screens/Auth/providers/user_provider.dart';
 import 'package:shiro_bot/screens/Auth/view/auth_page.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -21,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(
       Duration(seconds: 5),
       () {
-        Provider.of<RegistrationProvider>(context, listen: false)
+        Provider.of<userProvider>(context, listen: false)
             .initializerUser(context);
       },
     );

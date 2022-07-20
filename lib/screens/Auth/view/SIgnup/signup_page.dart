@@ -56,7 +56,7 @@ class _SignUpPageState extends State<SignUpPage> {
   //   controller.dispose();
   //   super.dispose();
   // }
-
+  bool _isAcceptTermsAndConditions = false;
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
   @override
@@ -141,6 +141,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                       onChanged: (value) {
                                         SignUpPage._authModel.firstName =
                                             value.trim();
+                                        setState(() {
+                                          _isAcceptTermsAndConditions = false;
+                                        });
                                       },
                                       icon: AppImages.avatar,
                                     ),

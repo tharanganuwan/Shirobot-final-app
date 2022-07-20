@@ -5,6 +5,7 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shiro_bot/components/custom_dialogBox.dart';
 import 'package:shiro_bot/config/app_route_config.dart';
+import 'package:shiro_bot/screens/Auth/controller/db_controller.dart';
 import 'package:shiro_bot/screens/Auth/model/auth_model.dart';
 import 'package:shiro_bot/screens/Auth/view/Login/login_page.dart';
 import 'package:shiro_bot/screens/Home/view/home_page.dart';
@@ -71,10 +72,10 @@ class AuthController {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
 
-      // if (userCredential.user!.uid.isNotEmpty) {
-      //   await DatabaseController()
-      //       .saveUserData(firstname, lastname, email, userCredential.user!.uid);
-      // }
+      if (userCredential.user!.uid.isNotEmpty) {
+        await DatabaseController()
+            .saveUserData(firstname, lastname, email, userCredential.user!.uid);
+      }
 
       DialogBox().dialogBox(
         context,
