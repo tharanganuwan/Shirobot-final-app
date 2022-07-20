@@ -72,8 +72,6 @@ class _AuthPageState extends State<AuthPage> {
                       BlueGradientButton(
                         text: "LOGIN",
                         onTap: () async {
-                          Provider.of<HomeController>(context, listen: false)
-                              .chechBlutoothOn(context);
                           AppRouteConfig.push(context, const LoginPage());
                         },
                       ),
@@ -81,8 +79,6 @@ class _AuthPageState extends State<AuthPage> {
                       GreenGradientButton(
                         text: "CREATE ACCOUNT",
                         onTap: () async {
-                          Provider.of<HomeController>(context, listen: false)
-                              .chechBlutoothOn(context);
                           AppRouteConfig.push(context, const SignUpPage());
                         },
                       ),

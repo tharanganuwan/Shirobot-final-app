@@ -6,11 +6,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logger/logger.dart';
+import 'package:provider/provider.dart';
 import 'package:shiro_bot/components/custom_dialogBox.dart';
 import 'package:shiro_bot/screens/Auth/controller/auth_controller.dart';
 import 'package:shiro_bot/screens/Auth/model/auth_model.dart';
 import 'package:shiro_bot/screens/Auth/view/Login/login_page.dart';
 import 'package:shiro_bot/screens/Auth/view/auth_page.dart';
+import 'package:shiro_bot/screens/Home/controller/home_controller.dart';
 import 'package:shiro_bot/screens/Home/view/home_page.dart';
 import 'package:shiro_bot/utils/util_function.dart';
 
@@ -163,6 +165,8 @@ class RegistrationProvider extends ChangeNotifier {
 
   //initialize user function
   Future<void> initializerUser(BuildContext context) async {
+    Provider.of<HomeController>(context, listen: false)
+        .chechBlutoothOn(context);
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
       if (user == null) {
         Logger().w('User is currently signed out');

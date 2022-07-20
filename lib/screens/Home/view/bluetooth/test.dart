@@ -6,25 +6,6 @@ import 'dart:math';
 
 import 'package:shiro_bot/screens/Home/view/bluetooth/test_widget.dart';
 
-class FlutterBlueApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      color: Colors.lightBlue,
-      home: StreamBuilder<BluetoothState>(
-          stream: FlutterBlue.instance.state,
-          initialData: BluetoothState.unknown,
-          builder: (c, snapshot) {
-            final state = snapshot.data;
-            if (state == BluetoothState.on) {
-              return FindDevicesScreen();
-            }
-            return BluetoothOffScreen(state: state);
-          }),
-    );
-  }
-}
-
 class BluetoothOffScreen extends StatelessWidget {
   const BluetoothOffScreen({Key? key, this.state}) : super(key: key);
 
@@ -47,7 +28,7 @@ class BluetoothOffScreen extends StatelessWidget {
               'Bluetooth Adapter is ${state != null ? state.toString().substring(15) : 'not available'}.',
               style: Theme.of(context)
                   .primaryTextTheme
-                  .bodySmall
+                  .titleLarge
                   ?.copyWith(color: Colors.white),
             ),
           ],
@@ -74,7 +55,7 @@ class FindDevicesScreen extends StatelessWidget {
                 stream: Stream.periodic(Duration(seconds: 2))
                     .asyncMap((_) => FlutterBlue.instance.connectedDevices),
                 initialData: [],
-                builder: (c, snapshot) => Column(
+                builder: (context, snapshot) => Column(
                   children: snapshot.data!
                       .map((d) => ListTile(
                             title: Text(d.name),

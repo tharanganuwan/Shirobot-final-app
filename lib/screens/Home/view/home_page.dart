@@ -27,9 +27,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       Future.delayed(const Duration(seconds: 1), () async {
-        bool isBlutoothOn =
-            Provider.of<HomeController>(context, listen: false).isblutoothOn;
-        AppDialogs.showBluetoothPermision(context, isBlutoothOn);
+        AppDialogs.showBluetoothPermision(context);
       });
     });
   }
@@ -98,19 +96,6 @@ class _HomePageState extends State<HomePage> {
                     print("start");
 /////////////////////////////////////////////////////////
                     ///
-                    FlutterBlue flutterBlue = FlutterBlue.instance;
-                    flutterBlue.startScan(timeout: Duration(seconds: 4));
-                    var subscription =
-                        flutterBlue.scanResults.listen((results) {
-                      // do something with scan results
-                      for (ScanResult r in results) {
-                        print('${r.device.name} found! rssi: ${r.rssi}');
-                        r.device.connect();
-                      }
-                    });
-
-// Stop scanning
-                    flutterBlue.stopScan();
 
                     //FlutterBlue flutterBlue = FlutterBlue.instance;
 
