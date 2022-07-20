@@ -8,6 +8,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logger/logger.dart';
 import 'package:shiro_bot/components/custom_dialogBox.dart';
 import 'package:shiro_bot/screens/Auth/controller/auth_controller.dart';
+import 'package:shiro_bot/screens/Auth/model/auth_model.dart';
 import 'package:shiro_bot/screens/Auth/view/Login/login_page.dart';
 import 'package:shiro_bot/screens/Auth/view/auth_page.dart';
 import 'package:shiro_bot/screens/Home/view/home_page.dart';
@@ -23,6 +24,11 @@ class RegistrationProvider extends ChangeNotifier {
   final _email = TextEditingController();
   final _password = TextEditingController();
   final _confirmpassword = TextEditingController();
+  String? _gender;
+  String? _dateOfBirth;
+  String? _country;
+  String? _phoneNumber;
+
   // final _gender = TextEditingController();
   // final _dateOfbirth = TextEditingController();
   // final _country = TextEditingController();
@@ -49,16 +55,14 @@ class RegistrationProvider extends ChangeNotifier {
   //get password controller
   TextEditingController get confirmpasswordController => _confirmpassword;
   // //get gender controller
-  // TextEditingController get genderController => _gender;
-
+  String? get gender => _gender;
   // //get dateofbirth controller
-  // TextEditingController get dateOfbirthController => _dateOfbirth;
+  String? get dateOfBirth => _dateOfBirth;
 
   // //get country controller
-  // TextEditingController get countryController => _country;
-
+  String? get country => _country;
   // //get phone controller
-  // TextEditingController get phoneController => _phoneNumber;
+  String? get phoneNumber => _phoneNumber;
 
   //change obscure state
   void changeObscure() {
@@ -66,19 +70,23 @@ class RegistrationProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  static final _authModel = AuthModel();
   //registration function
   Future<void> startRegister(BuildContext context) async {
     try {
       if (inputValidation()) {
         setLoading(true);
         await AuthController().registerUser(
-          context,
-          _firstname.text,
-          _lastname.text,
-          _email.text,
-          _password.text,
-          _confirmpassword.text,
-        );
+            context,
+            _firstname.text,
+            _lastname.text,
+            _email.text,
+            _password.text,
+            _confirmpassword.text,
+            _gender.toString(),
+            _dateOfBirth.toString(),
+            _country.toString(),
+            _phoneNumber.toString());
         setLoading();
       } else {
         setLoading();
@@ -102,7 +110,11 @@ class RegistrationProvider extends ChangeNotifier {
         _lastname.text.isEmpty ||
         _email.text.isEmpty ||
         _password.text.isEmpty ||
-        _confirmpassword.text.isEmpty) {
+        _confirmpassword.text.isEmpty ||
+        _gender.toString().isEmpty ||
+        _dateOfBirth.toString().isEmpty ||
+        _country.toString().isEmpty ||
+        _phoneNumber.toString().isEmpty) {
       isValid = false;
     } else if (!EmailValidator.validate(_email.text)) {
       isValid = false;
@@ -131,6 +143,17 @@ class RegistrationProvider extends ChangeNotifier {
   Future<void> googleAuth() async {
     try {
       _userCredential = await _authController.signInWithGoogle();
+      Logger().i(_userCredential);
+      notifyListeners();
+    } catch (e) {
+      Logger().e(e);
+    }
+  }
+
+//facebook signin
+  Future<void> faceBookAuth() async {
+    try {
+      _userCredential = await _authController.signInWithFacebook();
       Logger().i(_userCredential);
       notifyListeners();
     } catch (e) {

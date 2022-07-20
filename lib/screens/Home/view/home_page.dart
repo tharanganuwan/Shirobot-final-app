@@ -64,18 +64,6 @@ class _HomePageState extends State<HomePage> {
                   fontSize: 26,
                   fontWeight: FontWeight.w700,
                 ),
-                Consumer<RegistrationProvider>(
-                  builder: (context, value, child) {
-                    return GestureDetector(
-                      onTap: () {
-                        value.logout(context);
-                      },
-                      child: Container(
-                        child: Text('Logout'),
-                      ),
-                    );
-                  },
-                ),
 
                 const SizedBox(height: 10),
                 const Padding(

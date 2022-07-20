@@ -105,6 +105,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                         ///
                         ///
                         ///
+                        ///
                         /// Show password field if instruction is sent to email.
                         ///
                         ///
@@ -114,6 +115,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                           Column(
                             children: [
                               AppTextFormField(
+                                validator: 'please enter password',
                                 hintText: "Type password here",
                                 icon: AppImages.lock,
                                 isPassword: true,
@@ -121,6 +123,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                               ),
                               const SizedBox(height: 20),
                               AppTextFormField(
+                                validator: 'please enter password',
                                 hintText: "Confirm  password here",
                                 icon: AppImages.lock,
                                 isPassword: true,

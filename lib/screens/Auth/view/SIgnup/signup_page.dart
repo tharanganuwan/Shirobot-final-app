@@ -3,6 +3,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 import 'package:shiro_bot/components/custom_dialogBox.dart';
 import 'package:shiro_bot/config/app_route_config.dart';
@@ -34,6 +35,29 @@ class _SignUpPageState extends State<SignUpPage> {
     AppRouteConfig.push(
         context, SignUpSecondPage(authModel: SignUpPage._authModel));
   }
+
+  // late TextEditingController controller;
+  // bool isButtonActive = true;
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   controller = TextEditingController();
+  //   controller.addListener(() {
+  //     final isButtonActive = controller.text.isNotEmpty;
+
+  //     setState(() => this.isButtonActive = isButtonActive);
+  //   });
+  // }
+
+  // @override
+  // void dispose() {
+  //   // TODO: implement dispose
+  //   controller.dispose();
+  //   super.dispose();
+  // }
+
+  final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -77,115 +101,146 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                           child: Consumer<RegistrationProvider>(
                             builder: (context, value, child) {
-                              return Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Container(
-                                    height: 6,
-                                    width: 60,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(100),
-                                      color: AppColors.lightWhite,
+                              return Form(
+                                key: _formkey,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Container(
+                                      height: 6,
+                                      width: 60,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(100),
+                                        color: AppColors.lightWhite,
+                                      ),
                                     ),
-                                  ),
-                                  const SizedBox(height: 20),
-                                  const AppText(
-                                    text: "Create an Account",
-                                    fontSize: 26,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                  const SizedBox(height: 10),
-                                  const Padding(
-                                    padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                                    child: AppText(
-                                      text:
-                                          "Welcome! We're so glad you're here. Fill out the info below to get started.",
-                                      color: AppColors.lightGrey,
-                                      fontSize: 12,
-                                      textAlign: TextAlign.center,
+                                    const SizedBox(height: 20),
+                                    const AppText(
+                                      text: "Create an Account",
+                                      fontSize: 26,
+                                      fontWeight: FontWeight.w700,
                                     ),
-                                  ),
-                                  const SizedBox(height: 20),
-                                  AppTextFormField(
-                                    hintText: "First Name",
-                                    controller: value.firstnameController,
-                                    onChanged: (value) {
-                                      SignUpPage._authModel.firstName =
-                                          value.trim();
-                                    },
-                                    icon: AppImages.avatar,
-                                  ),
-                                  const SizedBox(height: 20),
-                                  AppTextFormField(
-                                    hintText: "Last Name",
-                                    controller: value.lastnameController,
-                                    onChanged: (value) {
-                                      SignUpPage._authModel.lastName =
-                                          value.trim();
-                                    },
-                                    icon: AppImages.avatar,
-                                  ),
-                                  const SizedBox(height: 20),
-                                  AppTextFormField(
-                                    hintText: "Email",
-                                    controller: value.emailController,
-                                    onChanged: (value) {
-                                      SignUpPage._authModel.email =
-                                          value.trim();
-                                    },
-                                    keyboardType: TextInputType.emailAddress,
-                                    icon: AppImages.email,
-                                  ),
-                                  const SizedBox(height: 20),
-                                  AppTextFormField(
-                                    hintText: "Password",
-                                    controller: value.passwordController,
-                                    onChanged: (value) {
-                                      SignUpPage._authModel.password =
-                                          value.trim();
-                                    },
-                                    icon: AppImages.lock,
-                                    isPassword: true,
-                                  ),
-                                  const SizedBox(height: 20),
-                                  AppTextFormField(
-                                    hintText: "Confirm Password",
-                                    controller: value.confirmpasswordController,
-                                    onChanged: (value) {
-                                      SignUpPage._authModel.confirmPassword =
-                                          value.trim();
-                                    },
-                                    icon: AppImages.lock,
-                                    isPassword: true,
-                                  ),
-                                  const SizedBox(height: 20),
-                                  BlueGradientButton(
-                                    text: "NEXT",
-                                    onTap: () => onNextPressed(context),
-                                  ),
-                                  const SizedBox(height: 20),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      const AppText(
-                                        text: "Already Have Account?",
+                                    const SizedBox(height: 10),
+                                    const Padding(
+                                      padding:
+                                          EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                      child: AppText(
+                                        text:
+                                            "Welcome! We're so glad you're here. Fill out the info below to get started.",
                                         color: AppColors.lightGrey,
                                         fontSize: 12,
+                                        textAlign: TextAlign.center,
                                       ),
-                                      const SizedBox(width: 10),
-                                      GestureDetector(
+                                    ),
+                                    const SizedBox(height: 20),
+                                    AppTextFormField(
+                                      validator: 'Please enter first name',
+                                      hintText: "First Name",
+                                      controller: value.firstnameController,
+                                      onChanged: (value) {
+                                        SignUpPage._authModel.firstName =
+                                            value.trim();
+                                      },
+                                      icon: AppImages.avatar,
+                                    ),
+                                    const SizedBox(height: 20),
+                                    AppTextFormField(
+                                      validator: 'please enter last name',
+                                      hintText: "Last Name",
+                                      controller: value.lastnameController,
+                                      onChanged: (value) {
+                                        SignUpPage._authModel.lastName =
+                                            value.trim();
+                                      },
+                                      icon: AppImages.avatar,
+                                    ),
+                                    const SizedBox(height: 20),
+                                    AppTextFormField(
+                                      validator: 'please enter valid email',
+                                      hintText: "Email",
+                                      controller: value.emailController,
+                                      onChanged: (value) {
+                                        SignUpPage._authModel.email =
+                                            value.trim();
+                                      },
+                                      keyboardType: TextInputType.emailAddress,
+                                      icon: AppImages.email,
+                                    ),
+                                    const SizedBox(height: 20),
+                                    AppTextFormField(
+                                      validator: 'please enter password',
+                                      hintText: "Password",
+                                      controller: value.passwordController,
+                                      onChanged: (value) {
+                                        SignUpPage._authModel.password =
+                                            value.trim();
+                                      },
+                                      icon: AppImages.lock,
+                                      isPassword: true,
+                                    ),
+                                    const SizedBox(height: 20),
+                                    AppTextFormField(
+                                      validator:
+                                          'please enter confirm password',
+                                      hintText: "Confirm Password",
+                                      controller:
+                                          value.confirmpasswordController,
+                                      onChanged: (value) {
+                                        SignUpPage._authModel.confirmPassword =
+                                            value.trim();
+                                      },
+                                      icon: AppImages.lock,
+                                      isPassword: true,
+                                    ),
+                                    const SizedBox(height: 20),
+                                    BlueGradientButton(
+                                        text: "NEXT",
                                         onTap: () {
-                                          AppRouteConfig.push(
-                                              context, const LoginPage());
-                                        },
-                                        child: const GradientText(
-                                          text: "Login Now",
+                                          // if (_formkey.currentState!
+                                          //     .validate()) {
+                                          //   return;
+                                          // } else if (value.inputValidation()) {
+                                          //   onNextPressed(context);
+                                          // } else {
+                                          //   print('unseccssf');
+                                          // }
+
+                                          if (value.inputValidation()) {
+                                            onNextPressed(context);
+                                          } else if (_formkey.currentState!
+                                              .validate()) {
+                                            return;
+                                          } else {
+                                            Logger().i(
+                                                value.firstnameController.text);
+                                          }
+                                        }),
+                                    const SizedBox(height: 20),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        const AppText(
+                                          text: "Already Have Account?",
+                                          color: AppColors.lightGrey,
                                           fontSize: 12,
                                         ),
-                                      )
-                                    ],
-                                  ),
-                                ],
+                                        const SizedBox(width: 10),
+                                        GestureDetector(
+                                          onTap: () {
+                                            AppRouteConfig.push(
+                                                context, const LoginPage());
+                                          },
+                                          child: const GradientText(
+                                            text: "Login Now",
+                                            fontSize: 12,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               );
                             },
                           )),

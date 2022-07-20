@@ -17,6 +17,8 @@ class AppTextFormField extends StatefulWidget {
   final String icon;
   final List<TextInputFormatter>? inputFormatters;
 
+  final String? validator;
+
   const AppTextFormField({
     Key? key,
     required this.hintText,
@@ -29,6 +31,7 @@ class AppTextFormField extends StatefulWidget {
     this.controller,
     this.onChanged,
     this.inputFormatters,
+    this.validator,
   }) : super(key: key);
 
   @override
@@ -64,6 +67,13 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
           ),
           Expanded(
             child: TextFormField(
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return widget.validator;
+                } else {
+                  return null;
+                }
+              },
               controller: widget.controller,
               onChanged: widget.onChanged,
               cursorWidth: 1,

@@ -1,6 +1,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shiro_bot/components/custom_dialogBox.dart';
 import 'package:shiro_bot/config/app_route_config.dart';
@@ -61,7 +62,11 @@ class AuthController {
       String lastname,
       String email,
       String password,
-      String confirmpassword) async {
+      String confirmpassword,
+      String gender,
+      String dateOfBirth,
+      String country,
+      String phoneNumber) async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
@@ -152,6 +157,7 @@ class AuthController {
     }
   }
 
+//google signin
   Future<UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
@@ -168,5 +174,17 @@ class AuthController {
 
     // Once signed in, return the UserCredential
     return await FirebaseAuth.instance.signInWithCredential(credential);
+  }
+
+  Future<UserCredential> signInWithFacebook() async {
+    // Trigger the sign-in flow
+    final LoginResult loginResult = await FacebookAuth.instance.login();
+
+    // Create a credential from the access token
+    final OAuthCredential facebookAuthCredential =
+        FacebookAuthProvider.credential(loginResult.accessToken!.token);
+
+    // Once signed in, return the UserCredential
+    return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
   }
 }

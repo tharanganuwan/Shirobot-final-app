@@ -2,6 +2,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:shiro_bot/components/custom_dialogBox.dart';
@@ -212,18 +213,19 @@ class _LoginPageState extends State<LoginPage> {
                             ///
                             ///
                             ///
-                            Consumer(
-                              builder: (context, value, child) {
-                                return SocialButton(
-                                  onGoogleTap: () {
-                                    Provider.of<RegistrationProvider>(context,
-                                            listen: false)
-                                        .googleAuth();
-                                  },
-                                  onFacebookTap: () {},
-                                  onLinkedInTap: () {},
-                                );
+
+                            SocialButton(
+                              onGoogleTap: () {
+                                Provider.of<RegistrationProvider>(context,
+                                        listen: false)
+                                    .googleAuth();
                               },
+                              onFacebookTap: () {
+                                Provider.of<RegistrationProvider>(context,
+                                        listen: false)
+                                    .faceBookAuth();
+                              },
+                              onLinkedInTap: () {},
                             ),
 
                             const SizedBox(height: 20),
