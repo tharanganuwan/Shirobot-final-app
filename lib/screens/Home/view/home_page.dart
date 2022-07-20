@@ -3,7 +3,9 @@ import 'package:flutter_blue/flutter_blue.dart';
 import 'package:provider/provider.dart';
 import 'package:shiro_bot/config/app_route_config.dart';
 import 'package:shiro_bot/constants/string_constant.dart';
+import 'package:shiro_bot/screens/Auth/model/user_model.dart';
 import 'package:shiro_bot/screens/Auth/providers/registration_provider.dart';
+import 'package:shiro_bot/screens/Auth/providers/user_provider.dart';
 import 'package:shiro_bot/screens/Home/controller/home_controller.dart';
 import 'package:shiro_bot/screens/Home/controller/session_controller.dart';
 import 'package:shiro_bot/screens/Home/view/subpages/liquid_flask_page.dart';
@@ -35,9 +37,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    String name = Provider.of<RegistrationProvider>(context, listen: false)
-        .name
-        .toString();
     SessionController _controller = context.watch<SessionController>();
 
     return Scaffold(
@@ -64,11 +63,16 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
                 const SizedBox(height: 30),
-                AppText(
-                  textAlign: TextAlign.center,
-                  text: "Welcome $name!",
-                  fontSize: 26,
-                  fontWeight: FontWeight.w700,
+
+                Consumer<userProvider>(
+                  builder: (context, value, child) {
+                    return AppText(
+                      textAlign: TextAlign.center,
+                      text: value.userModel.firstName,
+                      fontSize: 26,
+                      fontWeight: FontWeight.w700,
+                    );
+                  },
                 ),
 
                 const SizedBox(height: 10),
@@ -99,13 +103,13 @@ class _HomePageState extends State<HomePage> {
                   rightValue: "60 Mins",
                   onChanged: (value) async {
                     print("start");
-/////////////////////////////////////////////////////////
+                    /////////////////////////////////////////////////////////
                     ///
 
                     //FlutterBlue flutterBlue = FlutterBlue.instance;
 
                     print("stop");
-////////////////////////////////////////////////////////////
+                    ////////////////////////////////////////////////////////////
                     _controller.duration = value;
                   },
                 ),

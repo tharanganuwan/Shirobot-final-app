@@ -4,6 +4,8 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
@@ -165,28 +167,48 @@ class RegistrationProvider extends ChangeNotifier {
 
   String? name = "";
 
-  //initialize user function
-  Future<void> initializerUser(BuildContext context) async {
-    Provider.of<HomeController>(context, listen: false)
-        .chechBlutoothOn(context);
-    print("AAAAAAAAAAAAAAAAAAAAAA");
-    FirebaseAuth.instance.authStateChanges().listen((User? user) {
-      if (user == null) {
-        Logger().w('User is currently signed out');
-        UtilFunction.navigateTo(context, AuthPage());
-      } else {
-        name = user.email;
 
-        Logger().w('User is signed in');
-        UtilFunction.navigateTo(context, HomePage());
-      }
-    });
-  }
+
+  //initialize user function
+  //Future<void> initializerUser(BuildContext context) async {
+    //Provider.of<HomeController>(context, listen: false)
+    ///    .chechBlutoothOn(context);
+   // print("AAAAAAAAAAAAAAAAAAAAAA");
+   // FirebaseAuth.instance.authStateChanges().listen((User? user) {
+    //  if (user == null) {
+      //  Logger().w('User is currently signed out');
+       // UtilFunction.navigateTo(context, AuthPage());
+      //} else {
+        //name = user.email;
+
+       // Logger().w('User is signed in');
+       // UtilFunction.navigateTo(context, HomePage());
+     // }
+   // });
+ // }
+
 
   //sign out
   Future<void> logout(BuildContext context) async {
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().disconnect();
     await FirebaseAuth.instance.signOut();
+    //final GoogleSignInAccount? googleUser = await GoogleSignIn().disconnect();
+
     UtilFunction.navigateTo(context, AuthPage());
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+
+    try {
+      if (!kIsWeb) {
+        await googleSignIn.signOut();
+        UtilFunction.navigateTo(context, AuthPage());
+      }
+      await FirebaseAuth.instance.signOut();
+      UtilFunction.navigateTo(context, AuthPage());
+    } catch (e) {
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   Auth.customSnackBar(
+      //     content: 'Error signing out. Try again.',
+      //   ),
+      // );
+    }
   }
 }
