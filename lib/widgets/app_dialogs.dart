@@ -598,16 +598,13 @@ class AppDialogs {
                 padding: const EdgeInsets.all(20.0),
                 child: BlueGradientButton(
                   text: "OKAY",
-                  onTap: () {
+                  onTap: () async {
                     if (isOn) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => FindDevicesScreen()));
-                      Future.delayed(
-                        Duration(seconds: 3),
-                        () => Navigator.pop(context),
-                      );
+                      await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => FindDevicesScreen()))
+                          .then((value) => Navigator.pop(context));
                     } else {
                       Navigator.pop(context);
                       AppDialogs.showBluetoothPermision(context);

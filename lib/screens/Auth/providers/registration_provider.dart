@@ -163,6 +163,8 @@ class RegistrationProvider extends ChangeNotifier {
     }
   }
 
+  String? name = "";
+
   //initialize user function
   Future<void> initializerUser(BuildContext context) async {
     Provider.of<HomeController>(context, listen: false)
@@ -172,6 +174,10 @@ class RegistrationProvider extends ChangeNotifier {
         Logger().w('User is currently signed out');
         UtilFunction.navigateTo(context, AuthPage());
       } else {
+        name = user.email;
+        print(user.uid);
+        print(user.email);
+
         Logger().w('User is signed in');
         UtilFunction.navigateTo(context, HomePage());
       }
