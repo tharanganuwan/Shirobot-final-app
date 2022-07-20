@@ -3,6 +3,7 @@ import 'package:flutter_blue/flutter_blue.dart';
 import 'package:provider/provider.dart';
 import 'package:shiro_bot/config/app_route_config.dart';
 import 'package:shiro_bot/constants/string_constant.dart';
+import 'package:shiro_bot/screens/Auth/providers/registration_provider.dart';
 import 'package:shiro_bot/screens/Home/controller/home_controller.dart';
 import 'package:shiro_bot/screens/Home/controller/session_controller.dart';
 import 'package:shiro_bot/screens/Home/view/subpages/liquid_flask_page.dart';
@@ -27,15 +28,16 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       Future.delayed(const Duration(seconds: 1), () async {
-        bool isBlutoothOn =
-            Provider.of<HomeController>(context, listen: false).isblutoothOn;
-        AppDialogs.showBluetoothPermision(context, isBlutoothOn);
+        AppDialogs.showBluetoothPermision(context);
       });
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    String name = Provider.of<RegistrationProvider>(context, listen: false)
+        .name
+        .toString();
     SessionController _controller = context.watch<SessionController>();
 
     return Scaffold(
@@ -62,8 +64,9 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
                 const SizedBox(height: 30),
-                const AppText(
-                  text: "Welcome User!",
+                AppText(
+                  textAlign: TextAlign.center,
+                  text: "Welcome $name!",
                   fontSize: 26,
                   fontWeight: FontWeight.w700,
                 ),
@@ -98,19 +101,6 @@ class _HomePageState extends State<HomePage> {
                     print("start");
 /////////////////////////////////////////////////////////
                     ///
-                    FlutterBlue flutterBlue = FlutterBlue.instance;
-                    flutterBlue.startScan(timeout: Duration(seconds: 4));
-                    var subscription =
-                        flutterBlue.scanResults.listen((results) {
-                      // do something with scan results
-                      for (ScanResult r in results) {
-                        print('${r.device.name} found! rssi: ${r.rssi}');
-                        r.device.connect();
-                      }
-                    });
-
-// Stop scanning
-                    flutterBlue.stopScan();
 
                     //FlutterBlue flutterBlue = FlutterBlue.instance;
 
@@ -181,7 +171,12 @@ class _HomePageState extends State<HomePage> {
                 BlueGradientButton(
                   text: "NEXT",
                   onTap: () {
-                    AppRouteConfig.push(context, const LiquidFlaskScreen());
+                    if (Provider.of<HomeController>(context, listen: false)
+                        .isblutoothOn) {
+                      AppRouteConfig.push(context, const LiquidFlaskScreen());
+                    } else {
+                      AppDialogs.showBluetoothPermision(context);
+                    }
                   },
                 ),
                 const SizedBox(height: 20),

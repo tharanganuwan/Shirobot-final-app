@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:shiro_bot/config/app_route_config.dart';
 import 'package:shiro_bot/constants/app_colors.dart';
 import 'package:shiro_bot/constants/app_images.dart';
 import 'package:shiro_bot/screens/Auth/view/Login/login_page.dart';
+import 'package:shiro_bot/screens/Home/controller/home_controller.dart';
 import 'package:shiro_bot/screens/Home/view/bluetooth/test.dart';
 import 'package:shiro_bot/screens/Home/view/home_page.dart';
 import 'package:shiro_bot/screens/LastPage/last_page.dart';
@@ -543,8 +545,9 @@ class AppDialogs {
     );
   }
 
-  static void showBluetoothPermision(BuildContext context, bool isOn) {
-    int i = 0;
+  static void showBluetoothPermision(BuildContext context) {
+    bool isOn =
+        Provider.of<HomeController>(context, listen: false).isblutoothOn;
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -595,15 +598,16 @@ class AppDialogs {
                 padding: const EdgeInsets.all(20.0),
                 child: BlueGradientButton(
                   text: "OKAY",
-                  onTap: () {
-                    if (i == 0) {
-                      i++;
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => FindDevicesScreen()));
+                  onTap: () async {
+                    if (isOn) {
+                      await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => FindDevicesScreen()))
+                          .then((value) => Navigator.pop(context));
                     } else {
-                      AppRouteConfig.back(context);
+                      Navigator.pop(context);
+                      AppDialogs.showBluetoothPermision(context);
                     }
                   },
                 ),
