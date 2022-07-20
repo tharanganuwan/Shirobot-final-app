@@ -1,9 +1,11 @@
+import 'package:provider/provider.dart';
 import 'package:shiro_bot/config/app_route_config.dart';
 import 'package:shiro_bot/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:shiro_bot/constants/app_images.dart';
 import 'package:shiro_bot/screens/Auth/view/Login/login_page.dart';
 import 'package:shiro_bot/screens/Auth/view/SIgnup/signup_page.dart';
+import 'package:shiro_bot/screens/Home/controller/home_controller.dart';
 import 'package:shiro_bot/widgets/gradient_blue_button.dart';
 import 'package:shiro_bot/widgets/gradient_green_button.dart';
 import 'package:shiro_bot/widgets/rectangle_logo.dart';
@@ -64,14 +66,18 @@ class AuthPage extends StatelessWidget {
                     children: [
                       BlueGradientButton(
                         text: "LOGIN",
-                        onTap: () {
+                        onTap: () async {
+                          Provider.of<HomeController>(context, listen: false)
+                              .chechBlutoothOn(context);
                           AppRouteConfig.push(context, const LoginPage());
                         },
                       ),
                       const SizedBox(height: 15),
                       GreenGradientButton(
                         text: "CREATE ACCOUNT",
-                        onTap: () {
+                        onTap: () async {
+                          Provider.of<HomeController>(context, listen: false)
+                              .chechBlutoothOn(context);
                           AppRouteConfig.push(context, const SignUpPage());
                         },
                       ),
