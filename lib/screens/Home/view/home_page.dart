@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_blue/flutter_blue.dart';
 import 'package:provider/provider.dart';
 import 'package:shiro_bot/config/app_route_config.dart';
 import 'package:shiro_bot/constants/string_constant.dart';
-import 'package:shiro_bot/screens/Auth/providers/registration_provider.dart';
+import 'package:shiro_bot/screens/Home/controller/home_controller.dart';
 import 'package:shiro_bot/screens/Home/controller/session_controller.dart';
 import 'package:shiro_bot/screens/Home/view/subpages/liquid_flask_page.dart';
 import 'package:shiro_bot/widgets/app_dialogs.dart';
@@ -25,8 +26,10 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-      Future.delayed(const Duration(seconds: 1), () {
-        AppDialogs.showBluetoothPermision(context);
+      Future.delayed(const Duration(seconds: 1), () async {
+        bool isBlutoothOn =
+            Provider.of<HomeController>(context, listen: false).isblutoothOn;
+        AppDialogs.showBluetoothPermision(context, isBlutoothOn);
       });
     });
   }
@@ -91,7 +94,28 @@ class _HomePageState extends State<HomePage> {
                   title: "Duration",
                   leftValue: "30 Mins",
                   rightValue: "60 Mins",
-                  onChanged: (value) {
+                  onChanged: (value) async {
+                    print("start");
+/////////////////////////////////////////////////////////
+                    ///
+                    FlutterBlue flutterBlue = FlutterBlue.instance;
+                    flutterBlue.startScan(timeout: Duration(seconds: 4));
+                    var subscription =
+                        flutterBlue.scanResults.listen((results) {
+                      // do something with scan results
+                      for (ScanResult r in results) {
+                        print('${r.device.name} found! rssi: ${r.rssi}');
+                        r.device.connect();
+                      }
+                    });
+
+// Stop scanning
+                    flutterBlue.stopScan();
+
+                    //FlutterBlue flutterBlue = FlutterBlue.instance;
+
+                    print("stop");
+////////////////////////////////////////////////////////////
                     _controller.duration = value;
                   },
                 ),

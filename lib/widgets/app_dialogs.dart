@@ -5,6 +5,8 @@ import 'package:shiro_bot/config/app_route_config.dart';
 import 'package:shiro_bot/constants/app_colors.dart';
 import 'package:shiro_bot/constants/app_images.dart';
 import 'package:shiro_bot/screens/Auth/view/Login/login_page.dart';
+import 'package:shiro_bot/screens/Home/view/bluetooth/test.dart';
+import 'package:shiro_bot/screens/Home/view/home_page.dart';
 import 'package:shiro_bot/screens/LastPage/last_page.dart';
 import 'package:shiro_bot/widgets/app_text.dart';
 import 'package:shiro_bot/widgets/gradient_blue_button.dart';
@@ -541,7 +543,8 @@ class AppDialogs {
     );
   }
 
-  static void showBluetoothPermision(BuildContext context) {
+  static void showBluetoothPermision(BuildContext context, bool isOn) {
+    int i = 0;
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -558,11 +561,13 @@ class AppDialogs {
               ShaderMask(
                 blendMode: BlendMode.srcIn,
                 shaderCallback: (bounds) {
-                  return const LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: AppColors.blueGradient)
-                      .createShader(
+                  return LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: (isOn)
+                        ? AppColors.blueGradient
+                        : AppColors.orangeGradient,
+                  ).createShader(
                     Rect.fromLTWH(0, 0, bounds.width, bounds.height),
                   );
                 },
@@ -591,7 +596,15 @@ class AppDialogs {
                 child: BlueGradientButton(
                   text: "OKAY",
                   onTap: () {
-                    AppRouteConfig.back(context);
+                    if (i == 0) {
+                      i++;
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => FindDevicesScreen()));
+                    } else {
+                      AppRouteConfig.back(context);
+                    }
                   },
                 ),
               ),
