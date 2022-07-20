@@ -13,6 +13,7 @@ class LiquidFlaskScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isFilled = true;
     return Scaffold(
       body: SizedBox(
         height: double.infinity,
