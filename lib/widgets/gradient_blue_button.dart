@@ -2,12 +2,18 @@ import 'package:shiro_bot/constants/app_colors.dart';
 import 'package:shiro_bot/widgets/app_text.dart';
 import 'package:flutter/material.dart';
 
-class BlueGradientButton extends StatelessWidget {
+class BlueGradientButton extends StatefulWidget {
   final String text;
   final VoidCallback? onTap;
   const BlueGradientButton({Key? key, required this.text, this.onTap})
       : super(key: key);
 
+  @override
+  State<BlueGradientButton> createState() => _BlueGradientButtonState();
+}
+
+class _BlueGradientButtonState extends State<BlueGradientButton> {
+  bool isButtonActive = true;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,7 +27,7 @@ class BlueGradientButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
       ),
       child: ElevatedButton(
-        onPressed: onTap,
+        onPressed: widget.onTap,
         style: ButtonStyle(
           minimumSize: MaterialStateProperty.all(
               Size(MediaQuery.of(context).size.width, 60)),
@@ -36,7 +42,7 @@ class BlueGradientButton extends StatelessWidget {
           // padding: MaterialStateProperty.all(paddingLTRB(40, 15, 40, 15)),
         ),
         child: AppText(
-          text: text.toUpperCase(),
+          text: widget.text.toUpperCase(),
           fontWeight: FontWeight.w700,
           color: Colors.white,
         ),

@@ -10,9 +10,14 @@ import 'package:shiro_bot/widgets/gradient_blue_button.dart';
 import 'package:shiro_bot/widgets/gradient_green_button.dart';
 import 'package:shiro_bot/widgets/rectangle_logo.dart';
 
-class AuthPage extends StatelessWidget {
+class AuthPage extends StatefulWidget {
   const AuthPage({Key? key}) : super(key: key);
 
+  @override
+  State<AuthPage> createState() => _AuthPageState();
+}
+
+class _AuthPageState extends State<AuthPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

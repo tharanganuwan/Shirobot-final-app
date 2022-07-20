@@ -1,7 +1,9 @@
 import 'dart:math' show pi;
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shiro_bot/config/app_route_config.dart';
 import 'package:shiro_bot/constants/app_colors.dart';
+import 'package:shiro_bot/screens/Auth/providers/registration_provider.dart';
 import 'package:shiro_bot/screens/Auth/view/auth_page.dart';
 import 'package:shiro_bot/widgets/app_text.dart';
 
@@ -12,7 +14,8 @@ class LogoutButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        AppRouteConfig.pushAndRemoveUntil(context, const AuthPage());
+        Provider.of<RegistrationProvider>(context, listen: false)
+            .logout(context);
       },
       child: Column(
         children: [

@@ -6,7 +6,6 @@ import 'package:shiro_bot/constants/string_constant.dart';
 import 'package:shiro_bot/screens/Home/controller/home_controller.dart';
 import 'package:shiro_bot/screens/Home/controller/session_controller.dart';
 import 'package:shiro_bot/screens/Home/view/subpages/liquid_flask_page.dart';
-import 'package:shiro_bot/screens/Home/view/subpages/session_page.dart';
 import 'package:shiro_bot/widgets/app_dialogs.dart';
 import 'package:shiro_bot/widgets/app_logo.dart';
 import 'package:shiro_bot/widgets/app_text.dart';
@@ -55,10 +54,11 @@ class _HomePageState extends State<HomePage> {
                       height: 150,
                       width: 150,
                     ),
+
                     Align(
                       alignment: Alignment.topRight,
                       child: LogoutButton(),
-                    )
+                    ),
                   ],
                 ),
                 const SizedBox(height: 30),
@@ -67,6 +67,7 @@ class _HomePageState extends State<HomePage> {
                   fontSize: 26,
                   fontWeight: FontWeight.w700,
                 ),
+
                 const SizedBox(height: 10),
                 const Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 0),

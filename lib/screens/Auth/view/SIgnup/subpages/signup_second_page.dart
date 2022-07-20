@@ -2,10 +2,13 @@ import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:logger/logger.dart';
+import 'package:provider/provider.dart';
 import 'package:shiro_bot/config/app_route_config.dart';
 import 'package:shiro_bot/constants/app_colors.dart';
 import 'package:shiro_bot/constants/app_images.dart';
 import 'package:shiro_bot/screens/Auth/model/auth_model.dart';
+import 'package:shiro_bot/screens/Auth/providers/registration_provider.dart';
 import 'package:shiro_bot/screens/Auth/view/Login/login_page.dart';
 import 'package:shiro_bot/widgets/app_text.dart';
 import 'package:shiro_bot/widgets/app_text_form.dart';
@@ -34,6 +37,7 @@ class _SignUpSecondPageState extends State<SignUpSecondPage> {
     _authModel = widget.authModel;
   }
 
+  final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,138 +67,153 @@ class _SignUpSecondPageState extends State<SignUpSecondPage> {
                 ),
               ),
             ),
-            Align(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  const Spacer(),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      width: double.maxFinite,
-                      padding: const EdgeInsets.all(20.0),
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        boxShadow: AppColors.boxShadow,
-                        borderRadius:
-                            BorderRadius.vertical(top: Radius.circular(34)),
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          const SizedBox(height: 5.0),
-                          Container(
-                            height: 6,
-                            width: 60,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(100),
-                              color: AppColors.lightWhite,
-                            ),
+            Align(child: Consumer<RegistrationProvider>(
+              builder: (context, value, child) {
+                return Form(
+                  key: _formkey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      const Spacer(),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Container(
+                          width: double.maxFinite,
+                          padding: const EdgeInsets.all(20.0),
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            boxShadow: AppColors.boxShadow,
+                            borderRadius:
+                                BorderRadius.vertical(top: Radius.circular(34)),
                           ),
-                          const SizedBox(height: 30),
-                          ToggleButton(
-                            value: _authModel.gender,
-                            title: "Gender",
-                            leftValue: "Male",
-                            rightValue: "Female",
-                            onChanged: (value) {
-                              _authModel.gender = value;
-                              setState(() {});
-                            },
-                          ),
-                          const SizedBox(height: 20),
-                          Row(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
                             children: [
-                              const AppText(
-                                text: "Date of Birth",
-                                fontWeight: FontWeight.w600,
-                              ),
-                              const Spacer(),
-                              DateOfBirthSelect(
-                                onDateOfBirthChanged: (value) {
-                                  _authModel.dob = value;
-                                },
-                              )
-                            ],
-                          ),
-                          const SizedBox(height: 20),
-                          AppTextFormField(
-                            onChanged: (value) {
-                              _authModel.country = value.trim();
-                            },
-                            hintText: "Country",
-                            icon: AppImages.earth,
-                          ),
-                          const SizedBox(height: 20),
-                          Row(
-                            children: [
-                              // Coutry code
+                              const SizedBox(height: 5.0),
                               Container(
-                                height: 50,
+                                height: 6,
+                                width: 60,
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12),
+                                  borderRadius: BorderRadius.circular(100),
                                   color: AppColors.lightWhite,
                                 ),
-                                child: CountryCodePicker(
-                                  onChanged: (value) {
-                                    if (value.code != null) {
-                                      _authModel.countryCode =
-                                          value.code!.trim();
-                                    }
-                                  },
-                                  showCountryOnly: false,
-                                  flagWidth: 20,
-                                  hideSearch: true,
-                                  initialSelection: 'IN',
-                                  textStyle: GoogleFonts.montserrat(
-                                    fontSize: 16,
+                              ),
+                              const SizedBox(height: 30),
+                              ToggleButton(
+                                value: _authModel.gender,
+                                title: "Gender",
+                                leftValue: "Male",
+                                rightValue: "Female",
+                                onChanged: (value) {
+                                  _authModel.gender = value;
+                                  setState(() {});
+                                },
+                              ),
+                              const SizedBox(height: 20),
+                              Row(
+                                children: [
+                                  const AppText(
+                                    text: "Date of Birth",
                                     fontWeight: FontWeight.w600,
                                   ),
-                                  showOnlyCountryWhenClosed: false,
-                                  alignLeft: false,
-                                ),
+                                  const Spacer(),
+                                  DateOfBirthSelect(
+                                    onDateOfBirthChanged: (value) {
+                                      _authModel.dob = value;
+                                    },
+                                  )
+                                ],
                               ),
+                              const SizedBox(height: 20),
+                              AppTextFormField(
+                                validator: 'Please select county',
+                                onChanged: (value) {
+                                  _authModel.country = value.trim();
+                                },
+                                hintText: "Country",
+                                icon: AppImages.earth,
+                              ),
+                              const SizedBox(height: 20),
+                              Row(
+                                children: [
+                                  // Coutry code
+                                  Container(
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(12),
+                                      color: AppColors.lightWhite,
+                                    ),
+                                    child: CountryCodePicker(
+                                      onChanged: (value) {
+                                        if (value.code != null) {
+                                          _authModel.countryCode =
+                                              value.code!.trim();
+                                        }
+                                      },
+                                      showCountryOnly: false,
+                                      flagWidth: 20,
+                                      hideSearch: true,
+                                      initialSelection: 'IN',
+                                      textStyle: GoogleFonts.montserrat(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                      showOnlyCountryWhenClosed: false,
+                                      alignLeft: false,
+                                    ),
+                                  ),
 
-                              const SizedBox(width: 10),
-                              Expanded(
-                                child: AppTextFormField(
-                                  onChanged: (value) {
-                                    _authModel.phoneNumber = value.trim();
-                                  },
-                                  hintText: "Phone Number",
-                                  keyboardType: TextInputType.phone,
-                                  icon: AppImages.call,
-                                ),
+                                  const SizedBox(width: 10),
+                                  Expanded(
+                                    child: AppTextFormField(
+                                      validator: 'please type phone number',
+                                      onChanged: (value) {
+                                        _authModel.phoneNumber = value.trim();
+                                        print(_authModel.phoneNumber);
+                                      },
+                                      hintText: "Phone Number",
+                                      keyboardType: TextInputType.phone,
+                                      icon: AppImages.call,
+                                    ),
+                                  ),
+                                ],
                               ),
+                              const SizedBox(height: 20),
+                              Row(
+                                children: [
+                                  const SizedBox(width: 5.0),
+                                  AppCheckBox(onChanged: (value) {
+                                    _authModel.isTermsAccepted = value;
+                                  }),
+                                  const SizedBox(width: 10),
+                                  const AppText(text: "I accept the "),
+                                  const GradientText(text: "Terms & Conditions")
+                                ],
+                              ),
+                              const SizedBox(height: 30),
+                              BlueGradientButton(
+                                  text: "Register",
+                                  onTap: () async {
+                                    if (value.inputValidation()) {
+                                      value.startRegister(context);
+                                    } else if (_formkey.currentState!
+                                        .validate()) {
+                                      return;
+                                    } else {
+                                      Logger()
+                                          .i(value.firstnameController.text);
+                                    }
+                                  }),
                             ],
                           ),
-                          const SizedBox(height: 20),
-                          Row(
-                            children: [
-                              const SizedBox(width: 5.0),
-                              AppCheckBox(onChanged: (value) {
-                                _authModel.isTermsAccepted = value;
-                              }),
-                              const SizedBox(width: 10),
-                              const AppText(text: "I accept the "),
-                              const GradientText(text: "Terms & Conditions")
-                            ],
-                          ),
-                          const SizedBox(height: 30),
-                          BlueGradientButton(
-                            text: "Register",
-                            onTap: () {
-                              AppRouteConfig.push(context, const LoginPage());
-                            },
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
+                    ],
                   ),
-                ],
-              ),
-            )
+                );
+              },
+            ))
           ],
         ),
       ),

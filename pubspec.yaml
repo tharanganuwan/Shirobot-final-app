@@ -40,6 +40,14 @@ dependencies:
   provider: ^6.0.3
   flutter_blue: ^0.8.0
   
+  email_validator: ^2.0.1
+  firebase_core: "^1.6.0"
+  firebase_auth: "^3.1.1"
+  cloud_firestore: "^2.5.3"
+  logger: ^1.1.0
+  awesome_dialog: ^2.1.1
+  google_sign_in: ^5.2.3
+  flutter_facebook_auth: '^3.5.0'
 
 dev_dependencies:
   flutter_test:
