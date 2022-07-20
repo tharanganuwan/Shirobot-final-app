@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:logger/logger.dart';
 import 'package:shiro_bot/screens/Auth/model/auth_model.dart';
+import 'package:shiro_bot/screens/Auth/model/user_model.dart';
 
 class DatabaseController {
 //Firestore instance create
@@ -11,44 +12,42 @@ class DatabaseController {
   CollectionReference users = FirebaseFirestore.instance.collection('users');
   //save user information
   Future<void> saveUserData(
-    String name,
-    String phone,
+    String firstName,
+    String lastName,
+    // String dob,
+    // String gender,
     String email,
     String uid,
+    // String phoneNumber,
+    // String password,
+    // String confirmPassword,
+    // String country,
+    // String countryCode,
   ) {
     //Call the user's CollectionReference to add a new user
-    // return users
-    //     .add({
-    //       'name': name, // John Doe
-    //       'email': email, // Stokes and Sons
-    //       'phone': phone,
-
-    //       // 42
-    //     })
-    //     .then((value) => print("User Added"))
-    //     .catchError((error) => print("Failed to add user: $error"));
 
     return users
         .doc(uid)
         .set({
-          'name': name, // John Doe
-          'email': email, // Stokes and Sons
-          'phone': phone,
+          'firstName': firstName, // John Doe
+          'lastName': lastName, // Stokes and Sons
+          'email': email,
           'uid': uid,
-          'address': null,
-          'cartItems': []
         })
         .then((value) => print("User Added"))
         .catchError((error) => print("Failed to add user: $error"));
   }
 
-  //get user data
-  Future<AuthModel?> getuserData(String id) async {
+  // get user data
+  Future<UserModel?> getuserData(String id) async {
     try {
       DocumentSnapshot snapshot = await users.doc(id).get();
       Logger().i(snapshot.data());
-      AuthModel userModel =
-          AuthModel.fromJson(snapshot.data() as Map<String, dynamic>);
+
+      UserModel userModel =
+          UserModel.fromMap(snapshot.data() as Map<String, dynamic>);
+      // AuthModel userModel =
+      //     AuthModel.fromJson(snapshot.data() as Map<String, dynamic>);
       Logger().d(userModel.email);
 
       return userModel;

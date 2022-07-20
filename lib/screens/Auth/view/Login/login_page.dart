@@ -215,8 +215,8 @@ class _LoginPageState extends State<LoginPage> {
                             ///
 
                             SocialButton(
-                              onGoogleTap: () {
-                                Provider.of<RegistrationProvider>(context,
+                              onGoogleTap: () async {
+                                await Provider.of<RegistrationProvider>(context,
                                         listen: false)
                                     .googleAuth();
                               },

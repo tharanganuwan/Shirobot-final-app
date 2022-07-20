@@ -6,6 +6,8 @@ import 'package:shiro_bot/screens/Home/controller/home_controller.dart';
 import 'package:shiro_bot/splash_screen.dart';
 import 'package:shiro_bot/screens/Home/controller/session_controller.dart';
 
+import 'screens/Auth/providers/user_provider.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -23,6 +25,9 @@ class ShiroBot extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => HomeController()),
         ChangeNotifierProvider(
           create: (context) => RegistrationProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => userProvider(),
         )
       ],
       child: MaterialApp(

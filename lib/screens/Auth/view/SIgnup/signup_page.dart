@@ -199,30 +199,26 @@ class _SignUpPageState extends State<SignUpPage> {
                                     const SizedBox(height: 20),
                                     BlueGradientButton(
                                         text: "NEXT",
-                                        onTap: _isAcceptTermsAndConditions
-                                            ? () {
-                                                // if (_formkey.currentState!
-                                                //     .validate()) {
-                                                //   return;
-                                                // } else if (value.inputValidation()) {
-                                                //   onNextPressed(context);
-                                                // } else {
-                                                //   print('unseccssf');
-                                                // }
+                                        onTap: () {
+                                          // if (_formkey.currentState!
+                                          //     .validate()) {
+                                          //   return;
+                                          // } else if (value.inputValidation()) {
+                                          //   onNextPressed(context);
+                                          // } else {
+                                          //   print('unseccssf');
+                                          // }
 
-                                                if (value.inputValidation()) {
-                                                  onNextPressed(context);
-                                                } else if (_formkey
-                                                    .currentState!
-                                                    .validate()) {
-                                                  return;
-                                                } else {
-                                                  Logger().i(value
-                                                      .firstnameController
-                                                      .text);
-                                                }
-                                              }
-                                            : null),
+                                          if (value.inputValidation()) {
+                                            onNextPressed(context);
+                                          } else if (_formkey.currentState!
+                                              .validate()) {
+                                            return;
+                                          } else {
+                                            Logger().i(
+                                                value.firstnameController.text);
+                                          }
+                                        }),
                                     const SizedBox(height: 20),
                                     Row(
                                       mainAxisAlignment:
