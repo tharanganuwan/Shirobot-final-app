@@ -1,27 +1,28 @@
+import 'package:provider/provider.dart';
 import 'package:shiro_bot/config/app_route_config.dart';
 import 'package:shiro_bot/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:shiro_bot/constants/app_images.dart';
+import 'package:shiro_bot/screens/Auth/providers/registration_provider.dart';
 import 'package:shiro_bot/screens/Auth/view/auth_page.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
-  void navigateToNextPage(BuildContext context) {
-    // Check here if the user is logged in or not.
-    // If the user is logged in, navigate to the home page.
-    // If the user is not logged in, navigate to the login page.
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
 
+class _SplashScreenState extends State<SplashScreen> {
+  // void navigateToNextPage(BuildContext context) {
+  void initState() {
+    // TODO: implement initState
+    super.initState();
     Future.delayed(
-      const Duration(seconds: 2),
+      Duration(seconds: 5),
       () {
-        AppRouteConfig.pushReplacement(
-          context,
-          //
-          // if logged in HomePage() else LoginPage().
-          //
-          const AuthPage(),
-        );
+        Provider.of<RegistrationProvider>(context, listen: false)
+            .initializerUser(context);
       },
     );
   }
@@ -29,7 +30,7 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //
-    navigateToNextPage(context);
+    //navigateToNextPage(context);
 
     return Scaffold(
       body: Container(
