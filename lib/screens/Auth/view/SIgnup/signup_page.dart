@@ -56,7 +56,7 @@ class _SignUpPageState extends State<SignUpPage> {
   //   controller.dispose();
   //   super.dispose();
   // }
-
+  bool _isAcceptTermsAndConditions = false;
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
   @override
@@ -141,6 +141,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                       onChanged: (value) {
                                         SignUpPage._authModel.firstName =
                                             value.trim();
+                                        setState(() {
+                                          _isAcceptTermsAndConditions = false;
+                                        });
                                       },
                                       icon: AppImages.avatar,
                                     ),
@@ -196,26 +199,30 @@ class _SignUpPageState extends State<SignUpPage> {
                                     const SizedBox(height: 20),
                                     BlueGradientButton(
                                         text: "NEXT",
-                                        onTap: () {
-                                          // if (_formkey.currentState!
-                                          //     .validate()) {
-                                          //   return;
-                                          // } else if (value.inputValidation()) {
-                                          //   onNextPressed(context);
-                                          // } else {
-                                          //   print('unseccssf');
-                                          // }
+                                        onTap: _isAcceptTermsAndConditions
+                                            ? () {
+                                                // if (_formkey.currentState!
+                                                //     .validate()) {
+                                                //   return;
+                                                // } else if (value.inputValidation()) {
+                                                //   onNextPressed(context);
+                                                // } else {
+                                                //   print('unseccssf');
+                                                // }
 
-                                          if (value.inputValidation()) {
-                                            onNextPressed(context);
-                                          } else if (_formkey.currentState!
-                                              .validate()) {
-                                            return;
-                                          } else {
-                                            Logger().i(
-                                                value.firstnameController.text);
-                                          }
-                                        }),
+                                                if (value.inputValidation()) {
+                                                  onNextPressed(context);
+                                                } else if (_formkey
+                                                    .currentState!
+                                                    .validate()) {
+                                                  return;
+                                                } else {
+                                                  Logger().i(value
+                                                      .firstnameController
+                                                      .text);
+                                                }
+                                              }
+                                            : null),
                                     const SizedBox(height: 20),
                                     Row(
                                       mainAxisAlignment:
