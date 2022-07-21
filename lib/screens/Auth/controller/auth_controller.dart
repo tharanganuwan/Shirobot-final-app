@@ -77,12 +77,16 @@ class AuthController {
             .saveUserData(firstname, lastname, email, userCredential.user!.uid);
       }
 
-      DialogBox().dialogBox(
+      DialogBox()
+          .dialogBox(
         context,
         DialogType.SUCCES,
         'User Account Created',
         'Verify Your Email address and Login Now',
-      );
+      )
+          .then((value) {
+        UtilFunction.navigateTo(context, HomePage());
+      });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         DialogBox().dialogBox(

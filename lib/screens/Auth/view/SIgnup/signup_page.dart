@@ -36,26 +36,20 @@ class _SignUpPageState extends State<SignUpPage> {
         context, SignUpSecondPage(authModel: SignUpPage._authModel));
   }
 
-  // late TextEditingController controller;
-  // bool isButtonActive = true;
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   controller = TextEditingController();
-  //   controller.addListener(() {
-  //     final isButtonActive = controller.text.isNotEmpty;
+  bool submit = false;
+  final myController = TextEditingController();
+//----------
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    myController.addListener(() {
+      setState(() {
+        submit = myController.text.isNotEmpty;
+      });
+    });
+  }
 
-  //     setState(() => this.isButtonActive = isButtonActive);
-  //   });
-  // }
-
-  // @override
-  // void dispose() {
-  //   // TODO: implement dispose
-  //   controller.dispose();
-  //   super.dispose();
-  // }
   bool _isAcceptTermsAndConditions = false;
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
@@ -135,7 +129,13 @@ class _SignUpPageState extends State<SignUpPage> {
                                     ),
                                     const SizedBox(height: 20),
                                     AppTextFormField(
-                                      validator: 'Please enter first name',
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return "Please enter first name";
+                                        } else {
+                                          return null;
+                                        }
+                                      },
                                       hintText: "First Name",
                                       controller: value.firstnameController,
                                       onChanged: (value) {
@@ -149,7 +149,13 @@ class _SignUpPageState extends State<SignUpPage> {
                                     ),
                                     const SizedBox(height: 20),
                                     AppTextFormField(
-                                      validator: 'please enter last name',
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return "Please enter last name";
+                                        } else {
+                                          return null;
+                                        }
+                                      },
                                       hintText: "Last Name",
                                       controller: value.lastnameController,
                                       onChanged: (value) {
@@ -160,7 +166,15 @@ class _SignUpPageState extends State<SignUpPage> {
                                     ),
                                     const SizedBox(height: 20),
                                     AppTextFormField(
-                                      validator: 'please enter valid email',
+                                      validator: (value) {
+                                        if (value!.isEmpty &&
+                                            !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                                                .hasMatch(value)) {
+                                          return "Please enter a valid email address";
+                                        } else {
+                                          return null;
+                                        }
+                                      },
                                       hintText: "Email",
                                       controller: value.emailController,
                                       onChanged: (value) {
@@ -172,7 +186,14 @@ class _SignUpPageState extends State<SignUpPage> {
                                     ),
                                     const SizedBox(height: 20),
                                     AppTextFormField(
-                                      validator: 'please enter password',
+                                      validator: (value) {
+                                        if (value!.isEmpty ||
+                                            value.length < 8) {
+                                          return "Must be 8 or more characters";
+                                        } else {
+                                          return null;
+                                        }
+                                      },
                                       hintText: "Password",
                                       controller: value.passwordController,
                                       onChanged: (value) {
@@ -184,8 +205,14 @@ class _SignUpPageState extends State<SignUpPage> {
                                     ),
                                     const SizedBox(height: 20),
                                     AppTextFormField(
-                                      validator:
-                                          'please enter confirm password',
+                                      validator: (value) {
+                                        if (value!.isEmpty ||
+                                            value.length < 8) {
+                                          return "Must be 8 or more characters";
+                                        } else {
+                                          return null;
+                                        }
+                                      },
                                       hintText: "Confirm Password",
                                       controller:
                                           value.confirmpasswordController,
@@ -200,23 +227,15 @@ class _SignUpPageState extends State<SignUpPage> {
                                     BlueGradientButton(
                                         text: "NEXT",
                                         onTap: () {
-                                          // if (_formkey.currentState!
-                                          //     .validate()) {
-                                          //   return;
-                                          // } else if (value.inputValidation()) {
-                                          //   onNextPressed(context);
-                                          // } else {
-                                          //   print('unseccssf');
-                                          // }
-
-                                          if (value.inputValidation()) {
+                                          if (_formkey.currentState!
+                                                  .validate() &&
+                                              value.confirmpasswordController
+                                                      .text ==
+                                                  value.passwordController
+                                                      .text) {
                                             onNextPressed(context);
-                                          } else if (_formkey.currentState!
-                                              .validate()) {
-                                            return;
                                           } else {
-                                            Logger().i(
-                                                value.firstnameController.text);
+                                            print('error');
                                           }
                                         }),
                                     const SizedBox(height: 20),
