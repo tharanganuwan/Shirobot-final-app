@@ -167,7 +167,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     const SizedBox(height: 20),
                                     AppTextFormField(
                                       validator: (value) {
-                                        if (value!.isEmpty &&
+                                        if (value!.isEmpty ||
                                             !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
                                                 .hasMatch(value)) {
                                           return "Please enter a valid email address";
