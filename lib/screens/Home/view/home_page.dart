@@ -68,8 +68,7 @@ class _HomePageState extends State<HomePage> {
                   builder: (context, value, child) {
                     return AppText(
                       textAlign: TextAlign.center,
-                      text:
-                          "${Provider.of<userProvider>(context, listen: false).userName}", //value.userModel.firstName,
+                      text: value.userName,
                       fontSize: 26,
                       fontWeight: FontWeight.w700,
                     );
@@ -106,6 +105,10 @@ class _HomePageState extends State<HomePage> {
                     print("start");
                     /////////////////////////////////////////////////////////
                     ///
+                    Provider.of<HomeController>(context, listen: false)
+                        .setDuration(value);
+
+                    _controller.duration = value;
 
                     //FlutterBlue flutterBlue = FlutterBlue.instance;
 

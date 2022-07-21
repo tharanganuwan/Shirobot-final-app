@@ -9,6 +9,9 @@ class HomeController extends ChangeNotifier {
   String _hotCool = "cold";
   String get hotCool => _hotCool;
 
+  String _duration = "30";
+  String get duration => _duration;
+
   Future<void> chechBlutoothOn(BuildContext context) async {
     AppRouteConfig.pushAndRemoveUntil(
         context,
@@ -28,5 +31,32 @@ class HomeController extends ChangeNotifier {
 
   void sethotCool(String value) {
     _hotCool = value;
+  }
+
+  void setDuration(String value) {
+    _duration = value;
+  }
+
+  late int second;
+  int selectHotCold() {
+    String n1 = _hotCool;
+
+    if (n1 == "Cold") {
+      second = 30;
+    } else {
+      second = 10;
+    }
+    return second;
+  }
+
+  late int due;
+  int selectDuration() {
+    String d = _duration;
+    if (d == "30 Mins") {
+      due = 30;
+    } else {
+      due = 60;
+    }
+    return due;
   }
 }

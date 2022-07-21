@@ -8,6 +8,7 @@ import 'package:shiro_bot/constants/app_colors.dart';
 import 'package:shiro_bot/constants/app_images.dart';
 import 'package:shiro_bot/screens/Home/controller/home_controller.dart';
 import 'package:shiro_bot/screens/Home/controller/liquid_flask_controller.dart';
+import 'package:shiro_bot/screens/Home/controller/session_controller.dart';
 import 'package:shiro_bot/widgets/app_dialogs.dart';
 import 'package:shiro_bot/widgets/liquid_drop.dart';
 import 'package:shiro_bot/screens/Home/view/subpages/session_page.dart';
@@ -25,6 +26,8 @@ class LiquidFlaskScreen extends StatefulWidget {
 
 class _LiquidFlaskScreenState extends State<LiquidFlaskScreen> {
   void setTime(BuildContext context) {
+    second =
+        Provider.of<HomeController>(context, listen: false).selectHotCold();
     timer = Timer.periodic(Duration(seconds: 1), (_) {
       setState(() {
         if (second > 0) {
@@ -39,7 +42,7 @@ class _LiquidFlaskScreenState extends State<LiquidFlaskScreen> {
   }
 
   Timer? timer;
-  int second = 30;
+  late int second;
   void showInfo(BuildContext context, int n) {
     showDialog(
       context: context,
