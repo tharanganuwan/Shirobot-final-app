@@ -208,7 +208,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                       validator: (value) {
                                         if (value!.isEmpty ||
                                             value.length < 8) {
-                                          return "Must be 8 or more characters";
+                                          return "Must be 8 or more characters ";
                                         } else {
                                           return null;
                                         }
