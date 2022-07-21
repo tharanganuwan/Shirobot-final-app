@@ -4,6 +4,7 @@ import 'package:shiro_bot/widgets/app_text.dart';
 
 class DateOfBirthSelect extends StatefulWidget {
   final ValueChanged<String> onDateOfBirthChanged;
+
   const DateOfBirthSelect({Key? key, required this.onDateOfBirthChanged})
       : super(key: key);
 
@@ -21,6 +22,7 @@ class _DateOfBirthSelectState extends State<DateOfBirthSelect> {
         String? _date = await AppDialogs.showdatepicker(context);
         if (_date != null) {
           _selectedDate = _date;
+
           widget.onDateOfBirthChanged(_date);
           setState(() {});
         }

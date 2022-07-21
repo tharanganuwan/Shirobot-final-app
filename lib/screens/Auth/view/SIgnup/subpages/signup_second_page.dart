@@ -37,6 +37,7 @@ class _SignUpSecondPageState extends State<SignUpSecondPage> {
     _authModel = widget.authModel;
   }
 
+  bool isChecked = false;
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -197,9 +198,14 @@ class _SignUpSecondPageState extends State<SignUpSecondPage> {
                               Row(
                                 children: [
                                   const SizedBox(width: 5.0),
-                                  AppCheckBox(onChanged: (value) {
-                                    _authModel.isTermsAccepted = value;
-                                  }),
+                                  AppCheckBox(
+                                      value: isChecked,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          _authModel.isTermsAccepted = value;
+                                          isChecked = value ?? false;
+                                        });
+                                      }),
                                   const SizedBox(width: 10),
                                   const AppText(text: "I accept the "),
                                   const GradientText(text: "Terms & Conditions")
@@ -208,14 +214,17 @@ class _SignUpSecondPageState extends State<SignUpSecondPage> {
                               const SizedBox(height: 30),
                               BlueGradientButton(
                                   text: "Register",
-                                  onTap: () async {
-                                    if (_formkey.currentState!.validate()) {
-                                      value.startRegister(context);
-                                    } else {
-                                      Logger()
-                                          .i(value.firstnameController.text);
-                                    }
-                                  }),
+                                  onTap: isChecked
+                                      ? () async {
+                                          if (_formkey.currentState!
+                                              .validate()) {
+                                            value.startRegister(context);
+                                          } else {
+                                            Logger().i(
+                                                value.firstnameController.text);
+                                          }
+                                        }
+                                      : null),
                             ],
                           ),
                         ),
