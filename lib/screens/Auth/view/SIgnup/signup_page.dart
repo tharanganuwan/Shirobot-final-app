@@ -36,26 +36,20 @@ class _SignUpPageState extends State<SignUpPage> {
         context, SignUpSecondPage(authModel: SignUpPage._authModel));
   }
 
-  // late TextEditingController controller;
-  // bool isButtonActive = true;
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   controller = TextEditingController();
-  //   controller.addListener(() {
-  //     final isButtonActive = controller.text.isNotEmpty;
+  bool submit = false;
+  final myController = TextEditingController();
+//----------
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    myController.addListener(() {
+      setState(() {
+        submit = myController.text.isNotEmpty;
+      });
+    });
+  }
 
-  //     setState(() => this.isButtonActive = isButtonActive);
-  //   });
-  // }
-
-  // @override
-  // void dispose() {
-  //   // TODO: implement dispose
-  //   controller.dispose();
-  //   super.dispose();
-  // }
   bool _isAcceptTermsAndConditions = false;
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
@@ -137,7 +131,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     AppTextFormField(
                                       validator: 'Please enter first name',
                                       hintText: "First Name",
-                                      controller: value.firstnameController,
+                                      controller: myController,
                                       onChanged: (value) {
                                         SignUpPage._authModel.firstName =
                                             value.trim();
@@ -200,6 +194,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                     BlueGradientButton(
                                         text: "NEXT",
                                         onTap: () {
+                                          // submit
+                                          //     ? () => onNextPressed(context)
+                                          //     : null;
                                           // if (_formkey.currentState!
                                           //     .validate()) {
                                           //   return;
