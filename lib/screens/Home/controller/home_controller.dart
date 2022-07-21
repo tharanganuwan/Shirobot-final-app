@@ -6,10 +6,10 @@ class HomeController extends ChangeNotifier {
   bool _isblutoothOn = true;
   bool get isblutoothOn => _isblutoothOn;
 
-  String _hotCool = "cold";
+  String _hotCool = "Cold";
   String get hotCool => _hotCool;
 
-  String _duration = "30";
+  String _duration = "30 Mins";
   String get duration => _duration;
 
   Future<void> chechBlutoothOn(BuildContext context) async {
@@ -31,29 +31,27 @@ class HomeController extends ChangeNotifier {
 
   void sethotCool(String value) {
     _hotCool = value;
-    print(_hotCool);
   }
 
   void setDuration(String value) {
     _duration = value;
   }
 
-  late int second;
-  int selectHotCold() {
-    String n1 = _hotCool;
+  // late int second;
+  // int selectHotCold() {
+  //   String n1 = _hotCool;
 
-    if (n1 == "Cold") {
-      second = 30;
-    } else {
-      second = 10;
-    }
-    return second;
-  }
+  //   if (n1 == "Cold") {
+  //     second = 30;
+  //   } else {
+  //     second = 10;
+  //   }
+  //   return second;
+  // }
 
   late int due;
   int selectDuration() {
-    String d = _duration;
-    if (d == "30 Mins") {
+    if (duration == "30 Mins") {
       due = 1800;
     } else {
       due = 3600;

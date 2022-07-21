@@ -180,7 +180,7 @@ class _LiquidFlaskScreenState extends State<LiquidFlaskScreen> {
                           if (Provider.of<HomeController>(context,
                                       listen: false)
                                   .hotCool ==
-                              "cold") {
+                              "Cold") {
                             showInfo(context, 1);
                             Future.delayed(
                               const Duration(seconds: 29),
