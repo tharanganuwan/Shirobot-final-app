@@ -115,7 +115,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                           Column(
                             children: [
                               AppTextFormField(
-                                validator: 'please enter password',
+                                passwordvalidator: 'please enter password',
                                 hintText: "Type password here",
                                 icon: AppImages.lock,
                                 isPassword: true,
@@ -123,7 +123,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                               ),
                               const SizedBox(height: 20),
                               AppTextFormField(
-                                validator: 'please enter password',
+                                passwordvalidator: 'please enter password',
                                 hintText: "Confirm  password here",
                                 icon: AppImages.lock,
                                 isPassword: true,

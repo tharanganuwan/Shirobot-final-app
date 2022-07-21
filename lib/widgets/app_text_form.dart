@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -5,7 +6,65 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shiro_bot/constants/app_colors.dart';
 
+// class AppTextFormField extends StatefulWidget {
+//   final TextEditingController? controller;
+//   final ValueChanged<String>? onChanged;
+//   final String hintText;
+//   final TextStyle? hintStyle;
+//   final bool isPassword;
+//   final FontWeight? fontWeight;
+//   final TextInputType? keyboardType;
+//   final bool? isDense;
+//   final String icon;
+//   final List<TextInputFormatter>? inputFormatters;
+
+//   final String? namevalidator;
+//   final String? emailvalidator;
+//   final String? passwordvalidator;
+//   final String? Function(String?)? validator;
+
+//   const AppTextFormField(
+//       {Key? key,
+//       required this.hintText,
+//       required this.icon,
+//       this.hintStyle,
+//       this.isPassword = false,
+//       this.fontWeight,
+//       this.keyboardType,
+//       this.isDense,
+//       this.controller,
+//       this.onChanged,
+//       this.inputFormatters,
+//       this.namevalidator,
+//       this.emailvalidator,
+//       this.passwordvalidator,
+//       this.validator})
+//       : super(key: key);
+
+//   @override
+//   State<AppTextFormField> createState() => _AppTextFormFieldState();
+// }
+
+// class _AppTextFormFieldState extends State<AppTextFormField> {
+
 class AppTextFormField extends StatefulWidget {
+  AppTextFormField(
+      {Key? key,
+      required this.hintText,
+      required this.icon,
+      this.hintStyle,
+      this.isPassword = false,
+      this.fontWeight,
+      this.keyboardType,
+      this.isDense,
+      this.controller,
+      this.onChanged,
+      this.inputFormatters,
+      this.namevalidator,
+      this.emailvalidator,
+      this.passwordvalidator,
+      this.validator})
+      : super(key: key);
   final TextEditingController? controller;
   final ValueChanged<String>? onChanged;
   final String hintText;
@@ -17,22 +76,10 @@ class AppTextFormField extends StatefulWidget {
   final String icon;
   final List<TextInputFormatter>? inputFormatters;
 
-  final String? validator;
-
-  const AppTextFormField({
-    Key? key,
-    required this.hintText,
-    required this.icon,
-    this.hintStyle,
-    this.isPassword = false,
-    this.fontWeight,
-    this.keyboardType,
-    this.isDense,
-    this.controller,
-    this.onChanged,
-    this.inputFormatters,
-    this.validator,
-  }) : super(key: key);
+  final String? namevalidator;
+  final String? emailvalidator;
+  final String? passwordvalidator;
+  final String? Function(String?)? validator;
 
   @override
   State<AppTextFormField> createState() => _AppTextFormFieldState();
@@ -40,6 +87,8 @@ class AppTextFormField extends StatefulWidget {
 
 class _AppTextFormFieldState extends State<AppTextFormField> {
   bool isPasswordVisible = false;
+
+  final _email = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -67,13 +116,20 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
           ),
           Expanded(
             child: TextFormField(
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return widget.validator;
-                } else {
-                  return null;
-                }
-              },
+              validator: widget.validator,
+              // (value) {
+              //   if (value!.isEmpty) {
+              //     return widget.namevalidator;
+              //   } else if (value.isNotEmpty &&
+              //       !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+              //           .hasMatch(value)) {
+              //     return widget.emailvalidator;
+              //   } else if (!RegExp(
+              //           r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
+              //       .hasMatch(value)) {
+              //     return widget.passwordvalidator;
+              //   }
+              // },
               controller: widget.controller,
               onChanged: widget.onChanged,
               cursorWidth: 1,
