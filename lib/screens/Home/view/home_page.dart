@@ -104,6 +104,10 @@ class _HomePageState extends State<HomePage> {
                   onChanged: (value) async {
                     /////////////////////////////////////////////////////////
                     ///
+                    Provider.of<HomeController>(context, listen: false)
+                        .setDuration(value);
+
+                    _controller.duration = value;
 
                     ////////////////////////////////////////////////////////////
                     _controller.duration = value;

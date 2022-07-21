@@ -10,6 +10,8 @@ class SessionController extends ChangeNotifier {
   ///
   ///
   ///
+  ///
+
   String _duration = "30 Mins";
   String get duration => _duration;
   set duration(String value) {

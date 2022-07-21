@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shiro_bot/constants/app_colors.dart';
+import 'package:shiro_bot/screens/Home/controller/home_controller.dart';
 import 'package:shiro_bot/widgets/app_dialogs.dart';
 import 'package:shiro_bot/widgets/app_logo.dart';
 import 'package:shiro_bot/widgets/app_text.dart';
@@ -26,7 +28,7 @@ class _SessionPageState extends State<SessionPage>
 
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(seconds: getTotalSeconds),
+      duration: Duration(minutes: getTotalSeconds),
     );
 
     _animation = Tween<double>(begin: 0.0, end: 60.0).animate(
@@ -60,7 +62,9 @@ class _SessionPageState extends State<SessionPage>
 
   int currentSecond = 0;
   String get getRemainingSeconds {
-    currentSecond = getTotalSeconds - _stopwatch.elapsed.inSeconds;
+    int n11 =
+        Provider.of<HomeController>(context, listen: false).selectDuration();
+    currentSecond = n11 - _stopwatch.elapsed.inSeconds;
     final minutes = (currentSecond / 60).floor();
     final seconds = (currentSecond % 60).floor();
 
