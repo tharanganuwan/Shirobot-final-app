@@ -187,8 +187,9 @@ class _SignUpPageState extends State<SignUpPage> {
                                     const SizedBox(height: 20),
                                     AppTextFormField(
                                       validator: (value) {
-                                        if (value!.isEmpty ||
-                                            value.length < 8) {
+                                        if (value!.isEmpty) {
+                                          return "Please enter password";
+                                        } else if (value.length < 8) {
                                           return "Must be 8 or more characters";
                                         } else {
                                           return null;
@@ -206,9 +207,14 @@ class _SignUpPageState extends State<SignUpPage> {
                                     const SizedBox(height: 20),
                                     AppTextFormField(
                                       validator: (value) {
-                                        if (value!.isEmpty ||
-                                            value.length < 8) {
-                                          return "Must be 8 or more characters ";
+                                        if (value!.isEmpty) {
+                                          return "Please enter password";
+                                        } else if (value.length < 8) {
+                                          return "Must be 8 or more characters";
+                                        } else if (SignUpPage
+                                                ._authModel.confirmPassword !=
+                                            SignUpPage._authModel.password) {
+                                          return "password is not matched";
                                         } else {
                                           return null;
                                         }

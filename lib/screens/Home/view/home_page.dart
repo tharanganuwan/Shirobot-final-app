@@ -102,7 +102,6 @@ class _HomePageState extends State<HomePage> {
                   leftValue: "30 Mins",
                   rightValue: "60 Mins",
                   onChanged: (value) async {
-                    print("start");
                     /////////////////////////////////////////////////////////
                     ///
                     Provider.of<HomeController>(context, listen: false)
@@ -110,9 +109,6 @@ class _HomePageState extends State<HomePage> {
 
                     _controller.duration = value;
 
-                    //FlutterBlue flutterBlue = FlutterBlue.instance;
-
-                    print("stop");
                     ////////////////////////////////////////////////////////////
                     _controller.duration = value;
                   },
@@ -134,6 +130,7 @@ class _HomePageState extends State<HomePage> {
                   onChanged: (value) {
                     Provider.of<HomeController>(context, listen: false)
                         .sethotCool(value);
+
                     _controller.temperatureType = value;
                   },
                 ),

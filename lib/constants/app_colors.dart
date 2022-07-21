@@ -18,6 +18,11 @@ class AppColors {
     Color(0xFFF03800)
   ];
 
+  static const List<Color> blueGradienDisabled = [
+    Color.fromARGB(255, 37, 84, 99),
+    Color.fromARGB(255, 60, 104, 139)
+  ];
+
   /// 0px -25px 32px ;
 
   static const List<BoxShadow> boxShadow = [
