@@ -127,7 +127,13 @@ class _SignUpSecondPageState extends State<SignUpSecondPage> {
                               ),
                               const SizedBox(height: 20),
                               AppTextFormField(
-                                validator: 'Please select county',
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return "Please enter country name";
+                                  } else {
+                                    return null;
+                                  }
+                                },
                                 onChanged: (value) {
                                   _authModel.country = value.trim();
                                 },
@@ -167,7 +173,15 @@ class _SignUpSecondPageState extends State<SignUpSecondPage> {
                                   const SizedBox(width: 10),
                                   Expanded(
                                     child: AppTextFormField(
-                                      validator: 'please type phone number',
+                                      validator: (value) {
+                                        if (value!.isEmpty &&
+                                            !RegExp(r"^\+?0[0-9]{10}$")
+                                                .hasMatch(value)) {
+                                          return "Please enter a valid phone number";
+                                        } else {
+                                          return null;
+                                        }
+                                      },
                                       onChanged: (value) {
                                         _authModel.phoneNumber = value.trim();
                                         print(_authModel.phoneNumber);
@@ -195,11 +209,8 @@ class _SignUpSecondPageState extends State<SignUpSecondPage> {
                               BlueGradientButton(
                                   text: "Register",
                                   onTap: () async {
-                                    if (value.inputValidation()) {
+                                    if (_formkey.currentState!.validate()) {
                                       value.startRegister(context);
-                                    } else if (_formkey.currentState!
-                                        .validate()) {
-                                      return;
                                     } else {
                                       Logger()
                                           .i(value.firstnameController.text);
