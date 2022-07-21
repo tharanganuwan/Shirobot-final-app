@@ -53,9 +53,9 @@ class HomeController extends ChangeNotifier {
   int selectDuration() {
     String d = _duration;
     if (d == "30 Mins") {
-      due = 30;
+      due = 1800;
     } else {
-      due = 60;
+      due = 3600;
     }
     return due;
   }
