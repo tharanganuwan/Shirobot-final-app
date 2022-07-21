@@ -42,7 +42,7 @@ class _LiquidFlaskScreenState extends State<LiquidFlaskScreen> {
   }
 
   Timer? timer;
-  late int second;
+  int second = 0;
   void showInfo(BuildContext context, int n) {
     showDialog(
       context: context,
