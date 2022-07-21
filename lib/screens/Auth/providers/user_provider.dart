@@ -24,10 +24,11 @@ class userProvider extends ChangeNotifier {
         Logger().w('User is currently signed out');
         UtilFunction.navigateTo(context, AuthPage());
       } else {
-        userName = user.displayName!;
         Logger().w('User is signed in');
         UtilFunction.navigateTo(context, HomePage());
+
         await fetchSingleUser(user.uid);
+        userName = _userModel.firstName;
       }
     });
   }
