@@ -1,13 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:shiro_bot/config/app_route_config.dart';
 import 'package:shiro_bot/constants/app_colors.dart';
-import 'package:shiro_bot/constants/app_images.dart';
 import 'package:shiro_bot/screens/Home/controller/home_controller.dart';
 import 'package:shiro_bot/screens/Home/controller/liquid_flask_controller.dart';
-import 'package:shiro_bot/screens/Home/controller/session_controller.dart';
 import 'package:shiro_bot/widgets/app_dialogs.dart';
 import 'package:shiro_bot/widgets/liquid_drop.dart';
 import 'package:shiro_bot/screens/Home/view/subpages/session_page.dart';
@@ -85,8 +82,8 @@ class _LiquidFlaskScreenState extends State<LiquidFlaskScreen> {
                   child: FittedBox(
                     child: AppText(
                       text: (n == 1)
-                          ? "Your session will start in 30 Secs"
-                          : "Your session will start in 10 mins",
+                          ? "Your session will start in 30 Secs."
+                          : "Your session will start in 10 mins.",
                       textAlign: TextAlign.center,
                       fontWeight: FontWeight.w600,
                     ),
