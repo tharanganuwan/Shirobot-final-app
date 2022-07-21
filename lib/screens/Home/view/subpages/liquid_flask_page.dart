@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +14,7 @@ import 'package:shiro_bot/widgets/app_text.dart';
 import 'package:shiro_bot/widgets/arrow_back_button.dart';
 import 'package:shiro_bot/widgets/app_logo.dart';
 import 'package:shiro_bot/widgets/gradient_blue_button.dart';
+import 'package:slide_countdown/slide_countdown.dart';
 
 class LiquidFlaskScreen extends StatefulWidget {
   const LiquidFlaskScreen({Key? key}) : super(key: key);
@@ -24,22 +24,6 @@ class LiquidFlaskScreen extends StatefulWidget {
 }
 
 class _LiquidFlaskScreenState extends State<LiquidFlaskScreen> {
-  void setTime(BuildContext context) {
-    timer = Timer.periodic(Duration(seconds: 1), (_) {
-      setState(() {
-        if (second > 0) {
-          second--;
-        } else {
-          return;
-        }
-        Navigator.pop(context);
-        showInfo(context, 1);
-      });
-    });
-  }
-
-  Timer? timer;
-  int second = 30;
   void showInfo(BuildContext context, int n) {
     showDialog(
       context: context,
@@ -54,35 +38,43 @@ class _LiquidFlaskScreenState extends State<LiquidFlaskScreen> {
             padding: const EdgeInsets.all(5.0),
             child: Column(
               children: [
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: IconButton(
-                    padding: EdgeInsets.zero,
-                    splashRadius: 20,
-                    onPressed: () => {}, //AppRouteConfig.back(context),
-                    icon: const Icon(
-                      Icons.close,
-                      color: Colors.black38,
+                const Align(
+                    alignment: Alignment.centerRight,
+                    child: SizedBox(
+                      height: 40,
+                    )
+                    // IconButton(
+                    //   padding: EdgeInsets.zero,
+                    //   splashRadius: 20,
+                    //   onPressed: () => {}, //AppRouteConfig.back(context),
+                    //   icon: const Icon(
+                    //     Icons.close,
+                    //     color: Colors.black38,
+                    //   ),
+                    // ),
                     ),
-                  ),
-                ),
                 Container(
                   height: 100,
                   width: 100,
-                  padding: const EdgeInsets.all(25.0),
-                  decoration: BoxDecoration(
+                  //padding: const EdgeInsets.all(25.0),
+                  decoration: const BoxDecoration(
                     gradient: LinearGradient(
                       colors: AppColors.greenGradient,
                     ),
                     shape: BoxShape.circle,
                   ),
                   //child: SvgPicture.asset(AppImages.info),
-                  child: Center(
-                    child: Text(
-                      "$second",
-                      style: TextStyle(fontSize: 30, color: Colors.white),
-                    ),
-                  ),
+                  child: (n == 1)
+                      ? const Center(
+                          child: SlideCountdown(
+                            duration: Duration(seconds: 30),
+                          ),
+                        )
+                      : const Center(
+                          child: SlideCountdown(
+                            duration: Duration(minutes: 10, seconds: 0),
+                          ),
+                        ),
                 ),
                 const SizedBox(height: 20),
 
@@ -184,30 +176,37 @@ class _LiquidFlaskScreenState extends State<LiquidFlaskScreen> {
                     ? BlueGradientButton(
                         text: "START SESSION",
                         onTap: () {
-                          setTime(context);
                           if (Provider.of<HomeController>(context,
                                       listen: false)
                                   .hotCool ==
                               "cold") {
                             showInfo(context, 1);
+                            Future.delayed(
+                              const Duration(seconds: 29),
+                              () {
+                                AppRouteConfig.push(
+                                  context,
+                                  const SessionPage(),
+                                );
+                              },
+                            );
                           } else {
                             showInfo(context, 2);
+                            Future.delayed(
+                              const Duration(minutes: 9, seconds: 59),
+                              () {
+                                AppRouteConfig.push(
+                                  context,
+                                  const SessionPage(),
+                                );
+                              },
+                            );
                           }
-
-                          Future.delayed(
-                            const Duration(seconds: 31),
-                            () {
-                              AppRouteConfig.push(
-                                context,
-                                const SessionPage(),
-                              );
-                            },
-                          );
                         },
                       )
                     : BlueGradientButton(
                         isFill: false,
-                        text: "DISABLED SESSION",
+                        text: "START SESSION",
                         onTap: () {},
                       ),
                 const SizedBox(height: 20),

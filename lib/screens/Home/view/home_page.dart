@@ -68,8 +68,7 @@ class _HomePageState extends State<HomePage> {
                   builder: (context, value, child) {
                     return AppText(
                       textAlign: TextAlign.center,
-                      text:
-                          "${Provider.of<userProvider>(context, listen: false).userName}", //value.userModel.firstName,
+                      text: value.userName,
                       fontSize: 26,
                       fontWeight: FontWeight.w700,
                     );
@@ -103,13 +102,9 @@ class _HomePageState extends State<HomePage> {
                   leftValue: "30 Mins",
                   rightValue: "60 Mins",
                   onChanged: (value) async {
-                    print("start");
                     /////////////////////////////////////////////////////////
                     ///
 
-                    //FlutterBlue flutterBlue = FlutterBlue.instance;
-
-                    print("stop");
                     ////////////////////////////////////////////////////////////
                     _controller.duration = value;
                   },
@@ -131,6 +126,7 @@ class _HomePageState extends State<HomePage> {
                   onChanged: (value) {
                     Provider.of<HomeController>(context, listen: false)
                         .sethotCool(value);
+
                     _controller.temperatureType = value;
                   },
                 ),

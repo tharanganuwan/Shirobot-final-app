@@ -28,5 +28,6 @@ class HomeController extends ChangeNotifier {
 
   void sethotCool(String value) {
     _hotCool = value;
+    print(_hotCool);
   }
 }

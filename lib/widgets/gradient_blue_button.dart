@@ -28,17 +28,18 @@ class _BlueGradientButtonState extends State<BlueGradientButton> {
           end: Alignment.bottomRight,
           stops: [0.0, 1.0],
           colors: (!widget.isFill)
-              ? AppColors.orangeGradient
+              ? AppColors.blueGradienDisabled
               : AppColors.blueGradient,
         ),
         borderRadius: BorderRadius.circular(20),
       ),
       child: ElevatedButton(
-        onPressed: widget.onTap,
+        onPressed: (!widget.isFill) ? null : widget.onTap,
         style: ButtonStyle(
           minimumSize: MaterialStateProperty.all(
               Size(MediaQuery.of(context).size.width, 60)),
           elevation: MaterialStateProperty.all(0),
+
           backgroundColor: MaterialStateProperty.all(Colors.transparent),
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(
