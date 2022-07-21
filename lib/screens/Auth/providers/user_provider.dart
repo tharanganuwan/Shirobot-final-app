@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 import 'package:shiro_bot/screens/Auth/controller/db_controller.dart';
@@ -13,6 +13,7 @@ class userProvider extends ChangeNotifier {
   final DatabaseController _databaseController = DatabaseController();
   late UserModel _userModel;
   UserModel get userModel => _userModel;
+  String userName = "User";
 
   //initialize user function
   Future<void> initializerUser(BuildContext context) async {
@@ -23,10 +24,7 @@ class userProvider extends ChangeNotifier {
         Logger().w('User is currently signed out');
         UtilFunction.navigateTo(context, AuthPage());
       } else {
-        //  name = user.email;
-        print(user.uid);
-        print(user.email);
-
+        userName = user.displayName!;
         Logger().w('User is signed in');
         UtilFunction.navigateTo(context, HomePage());
         await fetchSingleUser(user.uid);

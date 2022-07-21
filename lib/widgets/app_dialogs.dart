@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -209,65 +211,78 @@ class AppDialogs {
   /// Session will be start after this time
   ///
   ///
-  static void showInfo(BuildContext context) {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => Dialog(
-        backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(5.0),
-          child: Column(
-            children: [
-              Align(
-                alignment: Alignment.centerRight,
-                child: IconButton(
-                  padding: EdgeInsets.zero,
-                  splashRadius: 20,
-                  onPressed: () => AppRouteConfig.back(context),
-                  icon: const Icon(
-                    Icons.close,
-                    color: Colors.black38,
-                  ),
-                ),
-              ),
-              Container(
-                height: 100,
-                width: 100,
-                padding: const EdgeInsets.all(25.0),
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: AppColors.greenGradient,
-                  ),
-                  shape: BoxShape.circle,
-                ),
-                child: SvgPicture.asset(AppImages.info),
-              ),
-              const SizedBox(height: 20),
+  // void setTime() {
+  //   timer = Timer.periodic(Duration(seconds: 1), (_) {
+  //     second--;
+  //   });
+  // }
 
-              ///
-              const Padding(
-                padding: EdgeInsets.all(20.0),
-                child: FittedBox(
-                  child: AppText(
-                    text: "Your session will start in 30 Secs",
-                    textAlign: TextAlign.center,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
+  // Timer? timer;
+  // int second = 30;
+  // void showInfo(BuildContext context, int n) {
+  //   //setTime;
+  //   showDialog(
+  //     context: context,
+  //     barrierDismissible: false,
+  //     builder: (context) => StatefulBuilder(
+  //       builder: (context, setState) => Dialog(
+  //         backgroundColor: Colors.white,
+  //         shape: RoundedRectangleBorder(
+  //           borderRadius: BorderRadius.circular(20),
+  //         ),
+  //         child: Padding(
+  //           padding: const EdgeInsets.all(5.0),
+  //           child: Column(
+  //             children: [
+  //               Align(
+  //                 alignment: Alignment.centerRight,
+  //                 child: IconButton(
+  //                   padding: EdgeInsets.zero,
+  //                   splashRadius: 20,
+  //                   onPressed: () => AppRouteConfig.back(context),
+  //                   icon: const Icon(
+  //                     Icons.close,
+  //                     color: Colors.black38,
+  //                   ),
+  //                 ),
+  //               ),
+  //               Container(
+  //                 height: 100,
+  //                 width: 100,
+  //                 padding: const EdgeInsets.all(25.0),
+  //                 decoration: const BoxDecoration(
+  //                   gradient: LinearGradient(
+  //                     colors: AppColors.greenGradient,
+  //                   ),
+  //                   shape: BoxShape.circle,
+  //                 ),
+  //                 child: SvgPicture.asset(AppImages.info),
+  //               ),
+  //               const SizedBox(height: 20),
 
-              const SizedBox(height: 20),
-            ],
-            mainAxisSize: MainAxisSize.min,
-          ),
-        ),
-      ),
-    );
-  }
+  //               ///
+  //               Padding(
+  //                 padding: EdgeInsets.all(20.0),
+  //                 child: FittedBox(
+  //                   child: AppText(
+  //                     text: (n == 1)
+  //                         ? "Your session will start in 30 Secs"
+  //                         : "Your session will start in 10 mins",
+  //                     textAlign: TextAlign.center,
+  //                     fontWeight: FontWeight.w600,
+  //                   ),
+  //                 ),
+  //               ),
+
+  //               const SizedBox(height: 20),
+  //             ],
+  //             mainAxisSize: MainAxisSize.min,
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   ///
   ///

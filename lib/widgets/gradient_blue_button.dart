@@ -5,8 +5,13 @@ import 'package:flutter/material.dart';
 class BlueGradientButton extends StatefulWidget {
   final String text;
   final VoidCallback? onTap;
-  const BlueGradientButton({Key? key, required this.text, this.onTap})
-      : super(key: key);
+  bool isFill;
+  BlueGradientButton({
+    Key? key,
+    required this.text,
+    this.onTap,
+    this.isFill = true,
+  }) : super(key: key);
 
   @override
   State<BlueGradientButton> createState() => _BlueGradientButtonState();
@@ -18,11 +23,13 @@ class _BlueGradientButtonState extends State<BlueGradientButton> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
+        gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           stops: [0.0, 1.0],
-          colors: AppColors.blueGradient,
+          colors: (!widget.isFill)
+              ? AppColors.orangeGradient
+              : AppColors.blueGradient,
         ),
         borderRadius: BorderRadius.circular(20),
       ),

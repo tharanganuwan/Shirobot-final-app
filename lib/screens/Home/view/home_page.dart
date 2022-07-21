@@ -68,7 +68,8 @@ class _HomePageState extends State<HomePage> {
                   builder: (context, value, child) {
                     return AppText(
                       textAlign: TextAlign.center,
-                      text: value.userModel.firstName,
+                      text:
+                          "${Provider.of<userProvider>(context, listen: false).userName}", //value.userModel.firstName,
                       fontSize: 26,
                       fontWeight: FontWeight.w700,
                     );
@@ -128,6 +129,8 @@ class _HomePageState extends State<HomePage> {
                   leftValue: "Cold",
                   rightValue: "Hot",
                   onChanged: (value) {
+                    Provider.of<HomeController>(context, listen: false)
+                        .sethotCool(value);
                     _controller.temperatureType = value;
                   },
                 ),

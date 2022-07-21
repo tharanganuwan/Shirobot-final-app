@@ -2,7 +2,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shiro_bot/screens/Auth/providers/registration_provider.dart';
+import 'package:shiro_bot/screens/Auth/view/SIgnup/signup_page.dart';
 import 'package:shiro_bot/screens/Home/controller/home_controller.dart';
+import 'package:shiro_bot/screens/Home/controller/liquid_flask_controller.dart';
+import 'package:shiro_bot/screens/Home/view/home_page.dart';
 import 'package:shiro_bot/screens/Home/view/subpages/liquid_flask_page.dart';
 import 'package:shiro_bot/splash_screen.dart';
 import 'package:shiro_bot/screens/Home/controller/session_controller.dart';
@@ -29,14 +32,18 @@ class ShiroBot extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => userProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => LiquidFlaskController(),
         )
       ],
       child: MaterialApp(
         title: 'Shirobot',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(primarySwatch: Colors.green),
-        //home: const SplashScreen(),
-        home: LiquidFlaskScreen(),
+        home: const SplashScreen(),
+        //home: LiquidFlaskScreen(),
+        //home: SignUpPage(),
       ),
     );
   }

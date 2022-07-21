@@ -4,8 +4,10 @@ import 'package:shiro_bot/config/app_route_config.dart';
 
 class HomeController extends ChangeNotifier {
   bool _isblutoothOn = true;
-  // bool get isblutoothOn => _isblutoothOn;
   bool get isblutoothOn => _isblutoothOn;
+
+  String _hotCool = "cold";
+  String get hotCool => _hotCool;
 
   Future<void> chechBlutoothOn(BuildContext context) async {
     AppRouteConfig.pushAndRemoveUntil(
@@ -22,6 +24,9 @@ class HomeController extends ChangeNotifier {
               }
               return SizedBox();
             }));
-    ;
+  }
+
+  void sethotCool(String value) {
+    _hotCool = value;
   }
 }
