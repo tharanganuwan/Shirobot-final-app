@@ -127,20 +127,37 @@ class _SignUpSecondPageState extends State<SignUpSecondPage> {
                                 ],
                               ),
                               const SizedBox(height: 20),
-                              AppTextFormField(
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return "Please enter country name";
-                                  } else {
-                                    return null;
-                                  }
-                                },
-                                onChanged: (value) {
-                                  _authModel.country = value.trim();
-                                },
-                                hintText: "Country",
-                                icon: AppImages.earth,
+                              // AppTextFormField(
+                              //   validator: (value) {
+                              //     if (value!.isEmpty) {
+                              //       return "Please enter country name";
+                              //     } else {
+                              //       return null;
+                              //     }
+                              //   },
+                              //   onChanged: (value) {
+                              //     _authModel.country = value.trim();
+                              //   },
+                              //   hintText: "Country",
+                              //   icon: AppImages.earth,
+                              // ),
+                              Container(
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  color: AppColors.lightWhite,
+                                ),
+                                child: CountryCodePicker(
+                                  showCountryOnly: true,
+                                  showOnlyCountryWhenClosed: true,
+                                  initialSelection: "Canada",
+                                  alignLeft: true,
+                                  onChanged: (x) {
+                                    _authModel.country = x.name.toString();
+                                  },
+                                ),
                               ),
+
                               const SizedBox(height: 20),
                               Row(
                                 children: [
@@ -161,7 +178,7 @@ class _SignUpSecondPageState extends State<SignUpSecondPage> {
                                       showCountryOnly: false,
                                       flagWidth: 20,
                                       hideSearch: true,
-                                      initialSelection: 'IN',
+                                      initialSelection: "Canada",
                                       textStyle: GoogleFonts.montserrat(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600,
@@ -214,17 +231,15 @@ class _SignUpSecondPageState extends State<SignUpSecondPage> {
                               const SizedBox(height: 30),
                               BlueGradientButton(
                                   text: "Register",
-                                  onTap: isChecked
-                                      ? () async {
-                                          if (_formkey.currentState!
-                                              .validate()) {
-                                            value.startRegister(context);
-                                          } else {
-                                            Logger().i(
-                                                value.firstnameController.text);
-                                          }
-                                        }
-                                      : null),
+                                  onTap: () async {
+                                    if (_formkey.currentState!.validate() &&
+                                        isChecked) {
+                                      value.startRegister(context);
+                                    } else {
+                                      Logger()
+                                          .i(value.firstnameController.text);
+                                    }
+                                  }),
                             ],
                           ),
                         ),

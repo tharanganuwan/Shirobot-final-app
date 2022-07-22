@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> {
                   builder: (context, value, child) {
                     return AppText(
                       textAlign: TextAlign.center,
-                      text: value.userName,
+                      text: "Welcome ${value.userName}",
                       fontSize: 26,
                       fontWeight: FontWeight.w700,
                     );

@@ -18,7 +18,7 @@ class BluetoothOffScreen extends StatelessWidget {
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
+          children: [
             Icon(
               Icons.bluetooth_disabled,
               size: 200.0,
@@ -43,6 +43,7 @@ class FindDevicesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.lightBlue,
         title: Text('Find Devices'),
       ),
       body: RefreshIndicator(
@@ -116,6 +117,7 @@ class FindDevicesScreen extends StatelessWidget {
           } else {
             return FloatingActionButton(
                 child: Icon(Icons.search),
+                backgroundColor: Colors.lightBlue,
                 onPressed: () => FlutterBlue.instance
                     .startScan(timeout: Duration(seconds: 4)));
           }

@@ -49,6 +49,7 @@ dependencies:
   flutter_facebook_auth: '^3.5.0'
   slide_countdown: ^0.2.8
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
