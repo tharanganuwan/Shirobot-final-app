@@ -1,40 +1,84 @@
 {
-    "project_info": {
-        "project_number": "54093192554",
-        "project_id": "shirobot-app",
-        "storage_bucket": "shirobot-app.appspot.com"
-    },
-    "client": [{
-        "client_info": {
-            "mobilesdk_app_id": "1:54093192554:android:f6e37429b4198355f81913",
-            "android_client_info": {
-                "package_name": "com.shirobot.shiro_bot"
-            }
-        },
-        "oauth_client": [{
-                "client_id": "54093192554-csct4gg68spmsidf53pk7ssd5eekqku0.apps.googleusercontent.com",
-                "client_type": 1,
-                "android_info": {
-                    "package_name": "com.shirobot.shiro_bot",
-                    "certificate_hash": "268979d09ad48149a8bb380016f417ae823df873"
-                }
-            },
-            {
-                "client_id": "54093192554-c7pplqlmgccmm3os9cgmni3lgl4rlgfr.apps.googleusercontent.com",
-                "client_type": 3
-            }
-        ],
-        "api_key": [{
-            "current_key": "AIzaSyBYT-uy2H1oY4F9c7UuswtGg7LDIHpoDRk"
-        }],
-        "services": {
-            "appinvite_service": {
-                "other_platform_oauth_client": [{
-                    "client_id": "54093192554-c7pplqlmgccmm3os9cgmni3lgl4rlgfr.apps.googleusercontent.com",
-                    "client_type": 3
-                }]
-            }
+  "project_info": {
+    "project_number": "54093192554",
+    "project_id": "shirobot-app",
+    "storage_bucket": "shirobot-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:54093192554:android:f6e37429b4198355f81913",
+        "android_client_info": {
+          "package_name": "com.shirobot.shiro_bot"
         }
-    }],
-    "configuration_version": "1"
+      },
+      "oauth_client": [
+        {
+          "client_id": "54093192554-csct4gg68spmsidf53pk7ssd5eekqku0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shirobot.shiro_bot",
+            "certificate_hash": "268979d09ad48149a8bb380016f417ae823df873"
+          }
+        },
+        {
+          "client_id": "54093192554-c7pplqlmgccmm3os9cgmni3lgl4rlgfr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYT-uy2H1oY4F9c7UuswtGg7LDIHpoDRk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "54093192554-c7pplqlmgccmm3os9cgmni3lgl4rlgfr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:54093192554:android:60cdeedb024adf9ef81913",
+        "android_client_info": {
+          "package_name": "com.shirobot.shiro_bott"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "54093192554-hlpmg0i3rrtqgbm6n07uj6mu72255gv2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shirobot.shiro_bott",
+            "certificate_hash": "d957719fcb06240a9744be0e769b64f9773949cd"
+          }
+        },
+        {
+          "client_id": "54093192554-c7pplqlmgccmm3os9cgmni3lgl4rlgfr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYT-uy2H1oY4F9c7UuswtGg7LDIHpoDRk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "54093192554-c7pplqlmgccmm3os9cgmni3lgl4rlgfr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
 }

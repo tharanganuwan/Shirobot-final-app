@@ -7,6 +7,7 @@ import 'package:shiro_bot/components/custom_dialogBox.dart';
 import 'package:shiro_bot/config/app_route_config.dart';
 import 'package:shiro_bot/screens/Auth/controller/db_controller.dart';
 import 'package:shiro_bot/screens/Auth/model/auth_model.dart';
+import 'package:shiro_bot/screens/Auth/providers/user_provider.dart';
 import 'package:shiro_bot/screens/Auth/view/Login/login_page.dart';
 import 'package:shiro_bot/screens/Home/view/home_page.dart';
 import 'package:shiro_bot/utils/app_utils.dart';
@@ -71,6 +72,7 @@ class AuthController {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
+      savedata(firstname, lastname, email, userCredential);
 
       if (userCredential.user!.uid.isNotEmpty) {
         await DatabaseController()
@@ -85,7 +87,12 @@ class AuthController {
         'Verify Your Email address and Login Now',
       )
           .then((value) {
-        UtilFunction.navigateTo(context, HomePage());
+        Future.delayed(
+          const Duration(seconds: 5),
+          () {
+            UtilFunction.navigateTo(context, HomePage());
+          },
+        );
       });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -105,6 +112,16 @@ class AuthController {
       }
     } catch (e) {
       print(e);
+    }
+  }
+
+//save data data base
+  Future<void> savedata(String? firstname, String? lastname, String? email,
+      UserCredential userCredential) async {
+    userProvider().userName = firstname!;
+    if (userCredential.user!.uid.isNotEmpty) {
+      await DatabaseController()
+          .saveUserData(firstname, lastname!, email!, userCredential.user!.uid);
     }
   }
 
@@ -165,13 +182,16 @@ class AuthController {
 //google signin
   Future<UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow
+
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
     // Obtain the auth details from the request
+
     final GoogleSignInAuthentication? googleAuth =
         await googleUser?.authentication;
 
     // Create a new credential
+
     final credential = GoogleAuthProvider.credential(
       accessToken: googleAuth?.accessToken,
       idToken: googleAuth?.idToken,

@@ -218,17 +218,30 @@ class _LoginPageState extends State<LoginPage> {
                               onGoogleTap: () {
                                 Provider.of<RegistrationProvider>(context,
                                         listen: false)
-                                    .googleAuth();
+                                    .googleAuth(context);
                               },
                               onFacebookTap: () {
-                                Provider.of<RegistrationProvider>(context,
-                                        listen: false)
-                                    .faceBookAuth();
+                                print("Facebook");
+                                // Provider.of<RegistrationProvider>(context,
+                                //         listen: false)
+                                //     .faceBookAuth();
                               },
-                              onLinkedInTap: () {},
+                              onLinkedInTap: () {
+                                print("Linedin");
+                              },
                             ),
-
                             const SizedBox(height: 20),
+
+                            // ElevatedButton(
+                            //     onPressed: () {
+                            //       print("object");
+                            //       Provider.of<RegistrationProvider>(context,
+                            //               listen: false)
+                            //           .faceBookAuth();
+                            //     },
+                            //     child: Text("Click")),
+
+                            // const SizedBox(height: 20),
 
                             ///
                             ///

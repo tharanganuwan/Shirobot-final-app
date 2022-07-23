@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 import 'package:shiro_bot/components/custom_dialogBox.dart';
 import 'package:shiro_bot/screens/Auth/controller/auth_controller.dart';
 import 'package:shiro_bot/screens/Auth/model/auth_model.dart';
+import 'package:shiro_bot/screens/Auth/providers/user_provider.dart';
 import 'package:shiro_bot/screens/Auth/view/Login/login_page.dart';
 import 'package:shiro_bot/screens/Auth/view/auth_page.dart';
 import 'package:shiro_bot/screens/Home/controller/home_controller.dart';
@@ -91,6 +92,7 @@ class RegistrationProvider extends ChangeNotifier {
             _dateOfBirth.toString(),
             _country.toString(),
             _phoneNumber.toString());
+        userProvider().userName = _firstname.text;
         setLoading();
       } else {
         setLoading();
@@ -144,9 +146,37 @@ class RegistrationProvider extends ChangeNotifier {
   //user credential
   late UserCredential _userCredential;
 //google sign in function
-  Future<void> googleAuth() async {
+  Future<void> googleAuth(BuildContext context) async {
+    String user;
     try {
       _userCredential = await _authController.signInWithGoogle();
+      user = _userCredential.user!.displayName!;
+
+      _authController.savedata(
+        _userCredential.user?.displayName,
+        " ",
+        _userCredential.user?.email,
+        _userCredential,
+      );
+
+      AwesomeDialog(
+        context: context,
+        dialogType: DialogType.SUCCES,
+        animType: AnimType.BOTTOMSLIDE,
+        title: "Success",
+        desc: "Login Success",
+        btnOkOnPress: () {
+          UtilFunction.navigateTo(context, HomePage());
+        },
+      ).show();
+
+      Future.delayed(
+        const Duration(seconds: 3),
+        () {
+          UtilFunction.navigateTo(context, HomePage());
+        },
+      );
+
       Logger().i(_userCredential);
       notifyListeners();
     } catch (e) {
@@ -167,26 +197,23 @@ class RegistrationProvider extends ChangeNotifier {
 
   String? name = "";
 
-
-
   //initialize user function
   //Future<void> initializerUser(BuildContext context) async {
-    //Provider.of<HomeController>(context, listen: false)
-    ///    .chechBlutoothOn(context);
-   // print("AAAAAAAAAAAAAAAAAAAAAA");
-   // FirebaseAuth.instance.authStateChanges().listen((User? user) {
-    //  if (user == null) {
-      //  Logger().w('User is currently signed out');
-       // UtilFunction.navigateTo(context, AuthPage());
-      //} else {
-        //name = user.email;
+  //Provider.of<HomeController>(context, listen: false)
+  ///    .chechBlutoothOn(context);
+  // print("AAAAAAAAAAAAAAAAAAAAAA");
+  // FirebaseAuth.instance.authStateChanges().listen((User? user) {
+  //  if (user == null) {
+  //  Logger().w('User is currently signed out');
+  // UtilFunction.navigateTo(context, AuthPage());
+  //} else {
+  //name = user.email;
 
-       // Logger().w('User is signed in');
-       // UtilFunction.navigateTo(context, HomePage());
-     // }
-   // });
- // }
-
+  // Logger().w('User is signed in');
+  // UtilFunction.navigateTo(context, HomePage());
+  // }
+  // });
+  // }
 
   //sign out
   Future<void> logout(BuildContext context) async {

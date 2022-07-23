@@ -1,9 +1,11 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
+import 'package:shiro_bot/components/custom_dialogBox.dart';
 import 'package:shiro_bot/config/app_route_config.dart';
 import 'package:shiro_bot/constants/app_colors.dart';
 import 'package:shiro_bot/constants/app_images.dart';
@@ -238,6 +240,17 @@ class _SignUpSecondPageState extends State<SignUpSecondPage> {
                                     } else {
                                       Logger()
                                           .i(value.firstnameController.text);
+
+                                      if (_formkey.currentState!.validate()) {
+                                        if (!isChecked) {
+                                          DialogBox().dialogBox(
+                                            context,
+                                            DialogType.ERROR,
+                                            'Information',
+                                            'Please Accept the Terams & Condition.',
+                                          );
+                                        }
+                                      }
                                     }
                                   }),
                             ],

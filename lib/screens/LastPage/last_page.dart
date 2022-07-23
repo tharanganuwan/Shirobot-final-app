@@ -30,8 +30,7 @@ class LastPage extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        AppRouteConfig.pushAndRemoveUntil(
-                            context, const HomePage());
+                        AppRouteConfig.pushAndRemoveUntil(context, HomePage());
                       },
                       child: Container(
                         height: 40,
@@ -107,8 +106,7 @@ class LastPage extends StatelessWidget {
                 BlueGradientButton(
                   text: "START AGAIN",
                   onTap: () {
-                    AppRouteConfig.pushAndRemoveUntil(
-                        context, const HomePage());
+                    AppRouteConfig.pushAndRemoveUntil(context, HomePage());
                   },
                 ),
                 const SizedBox(height: 20),
