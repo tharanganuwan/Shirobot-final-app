@@ -48,8 +48,6 @@ dependencies:
   google_sign_in: ^5.2.3
   flutter_facebook_auth: '^3.5.0'
   slide_countdown: ^0.2.8
-  font_awesome_flutter: ^10.1.0
-  
 
 
 dev_dependencies:
