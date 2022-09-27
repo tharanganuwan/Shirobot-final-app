@@ -15,6 +15,13 @@ class userProvider extends ChangeNotifier {
   UserModel get userModel => _userModel;
   String userName = "User";
 
+  clearModel() {
+    _userModel.email = '';
+    _userModel.firstName = '';
+    _userModel.lastName = '';
+    _userModel.uid = '';
+  }
+
   //initialize user function
   Future<void> initializerUser(BuildContext context) async {
     Provider.of<HomeController>(context, listen: false)

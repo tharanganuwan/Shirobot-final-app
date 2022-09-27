@@ -220,16 +220,16 @@ class RegistrationProvider extends ChangeNotifier {
     await FirebaseAuth.instance.signOut();
     //final GoogleSignInAccount? googleUser = await GoogleSignIn().disconnect();
 
-    UtilFunction.navigateTo(context, AuthPage());
+    // UtilFunction.navigateTo(context, AuthPage());
     final GoogleSignIn googleSignIn = GoogleSignIn();
 
     try {
       if (!kIsWeb) {
         await googleSignIn.signOut();
-        UtilFunction.navigateTo(context, AuthPage());
+        // UtilFunction.navigateTo(context, AuthPage());
       }
       await FirebaseAuth.instance.signOut();
-      UtilFunction.navigateTo(context, AuthPage());
+      // UtilFunction.navigateTo(context, AuthPage());
     } catch (e) {
       // ScaffoldMessenger.of(context).showSnackBar(
       //   Auth.customSnackBar(

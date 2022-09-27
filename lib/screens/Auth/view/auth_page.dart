@@ -6,6 +6,7 @@ import 'package:shiro_bot/constants/app_images.dart';
 import 'package:shiro_bot/screens/Auth/view/Login/login_page.dart';
 import 'package:shiro_bot/screens/Auth/view/SIgnup/signup_page.dart';
 import 'package:shiro_bot/screens/Home/controller/home_controller.dart';
+import 'package:shiro_bot/utils/util_function.dart';
 import 'package:shiro_bot/widgets/gradient_blue_button.dart';
 import 'package:shiro_bot/widgets/gradient_green_button.dart';
 import 'package:shiro_bot/widgets/rectangle_logo.dart';
@@ -72,14 +73,14 @@ class _AuthPageState extends State<AuthPage> {
                       BlueGradientButton(
                         text: "LOGIN",
                         onTap: () async {
-                          AppRouteConfig.push(context, const LoginPage());
+                          UtilFunction.navigateTo(context, LoginPage());
                         },
                       ),
                       const SizedBox(height: 15),
                       GreenGradientButton(
                         text: "CREATE ACCOUNT",
                         onTap: () async {
-                          AppRouteConfig.push(context, const SignUpPage());
+                          UtilFunction.navigateTo(context, SignUpPage());
                         },
                       ),
                     ],
