@@ -29,10 +29,18 @@ class userProvider extends ChangeNotifier {
     FirebaseAuth.instance.authStateChanges().listen((User? user) async {
       if (user == null) {
         Logger().w('User is currently signed out');
-        UtilFunction.navigateTo(context, AuthPage());
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => AuthPage()),
+            (route) => false);
+        //UtilFunction.navigateTo(context, AuthPage());
       } else {
         Logger().w('User is signed in');
-        UtilFunction.navigateTo(context, HomePage());
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => HomePage()),
+            (route) => false);
+        //UtilFunction.navigateTo(context, HomePage());
 
         await fetchSingleUser(user.uid);
         userName = _userModel.firstName;

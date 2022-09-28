@@ -193,7 +193,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                           return "Please enter password";
                                         } else if (value.length < 6) {
                                           return "Must be 6 or more characters";
-                                        } else if (validCharacters
+                                        } else if (!validCharacters
                                             .hasMatch(value)) {
                                           return "password must be alphanumeric";
                                         } else {

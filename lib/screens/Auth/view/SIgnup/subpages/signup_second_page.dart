@@ -40,6 +40,10 @@ class _SignUpSecondPageState extends State<SignUpSecondPage> {
   }
 
   bool isChecked = false;
+  String g = 'no';
+  String d = 'no';
+  bool genderError = false;
+  bool dateError = false;
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -109,11 +113,22 @@ class _SignUpSecondPageState extends State<SignUpSecondPage> {
                                 leftValue: "Male",
                                 rightValue: "Female",
                                 onChanged: (value) {
-                                  _authModel.gender = value;
-                                  setState(() {});
+                                  setState(() {
+                                    g = value;
+                                    genderError = false;
+                                    _authModel.gender = value;
+                                  });
                                 },
                               ),
-                              const SizedBox(height: 20),
+                              (genderError)
+                                  ? Text(
+                                      "Please select gender",
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: 13,
+                                      ),
+                                    )
+                                  : SizedBox(height: 20),
                               Row(
                                 children: [
                                   const AppText(
@@ -123,26 +138,24 @@ class _SignUpSecondPageState extends State<SignUpSecondPage> {
                                   const Spacer(),
                                   DateOfBirthSelect(
                                     onDateOfBirthChanged: (value) {
-                                      _authModel.dob = value;
+                                      setState(() {
+                                        d = value;
+                                        dateError = false;
+                                        _authModel.dob = value;
+                                      });
                                     },
                                   )
                                 ],
                               ),
-                              const SizedBox(height: 20),
-                              // AppTextFormField(
-                              //   validator: (value) {
-                              //     if (value!.isEmpty) {
-                              //       return "Please enter country name";
-                              //     } else {
-                              //       return null;
-                              //     }
-                              //   },
-                              //   onChanged: (value) {
-                              //     _authModel.country = value.trim();
-                              //   },
-                              //   hintText: "Country",
-                              //   icon: AppImages.earth,
-                              // ),
+                              (dateError)
+                                  ? Text(
+                                      "Please select correct of Birth",
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: 13,
+                                      ),
+                                    )
+                                  : SizedBox(height: 20),
                               Container(
                                 height: 50,
                                 decoration: BoxDecoration(
@@ -155,11 +168,13 @@ class _SignUpSecondPageState extends State<SignUpSecondPage> {
                                   initialSelection: "Canada",
                                   alignLeft: true,
                                   onChanged: (x) {
-                                    _authModel.country = x.name.toString();
+                                    setState(() {
+                                      _authModel.country = x.name.toString();
+                                      _authModel.countryCode = x.code!.trim();
+                                    });
                                   },
                                 ),
                               ),
-
                               const SizedBox(height: 20),
                               Row(
                                 children: [
@@ -180,7 +195,7 @@ class _SignUpSecondPageState extends State<SignUpSecondPage> {
                                       showCountryOnly: false,
                                       flagWidth: 20,
                                       hideSearch: true,
-                                      initialSelection: "Canada",
+                                      initialSelection: _authModel.countryCode,
                                       textStyle: GoogleFonts.montserrat(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600,
@@ -222,7 +237,7 @@ class _SignUpSecondPageState extends State<SignUpSecondPage> {
                                       onChanged: (value) {
                                         setState(() {
                                           _authModel.isTermsAccepted = value;
-                                          isChecked = value ?? false;
+                                          isChecked = value;
                                         });
                                       }),
                                   const SizedBox(width: 10),
@@ -234,23 +249,36 @@ class _SignUpSecondPageState extends State<SignUpSecondPage> {
                               BlueGradientButton(
                                   text: "Register",
                                   onTap: () async {
-                                    if (_formkey.currentState!.validate() &&
-                                        isChecked) {
-                                      value.startRegister(context);
+                                    print(
+                                        2022 - double.parse(d.substring(0, 4)));
+                                    if (g == 'no') {
+                                      setState(() {
+                                        genderError = true;
+                                      });
+                                    } else if (d == 'no') {
+                                      setState(() {
+                                        dateError = true;
+                                      });
+                                    } else if (16 >=
+                                        2022 -
+                                            double.parse(d.substring(0, 4))) {
+                                      setState(() {
+                                        dateError = true;
+                                      });
+                                    } else if (!_formkey.currentState!
+                                        .validate()) {
+                                      print("mobile number error");
+                                    } else if (!isChecked) {
+                                      DialogBox().dialogBox(
+                                        context,
+                                        DialogType.ERROR,
+                                        'Information',
+                                        'Please Accept the Terams & Condition.',
+                                      );
                                     } else {
-                                      Logger()
-                                          .i(value.firstnameController.text);
-
-                                      if (_formkey.currentState!.validate()) {
-                                        if (!isChecked) {
-                                          DialogBox().dialogBox(
-                                            context,
-                                            DialogType.ERROR,
-                                            'Information',
-                                            'Please Accept the Terams & Condition.',
-                                          );
-                                        }
-                                      }
+                                      print(
+                                          "----------------ok------------------");
+                                      //value.startRegister(context);
                                     }
                                   }),
                             ],

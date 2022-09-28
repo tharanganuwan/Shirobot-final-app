@@ -19,7 +19,11 @@ class LogoutButton extends StatelessWidget {
       onTap: () {
         Provider.of<RegistrationProvider>(context, listen: false)
             .logout(context);
-        UtilFunction.navigateTo(context, LoginPage());
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => LoginPage()),
+            (route) => false);
+
         //userProvider().clearModel();
       },
       child: Column(
