@@ -83,8 +83,8 @@ class AuthController {
           .dialogBox(
         context,
         DialogType.SUCCES,
-        'User Account Created',
-        'Verify Your Email address and Login Now',
+        'Congratulations!! ',
+        'Your account has been created successfully',
       )
           .then((value) {
         Future.delayed(

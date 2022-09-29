@@ -82,33 +82,33 @@ class SocialButton extends StatelessWidget {
         const SizedBox(width: 20),
 
         /// Facebook button
-        Container(
-          height: 50,
-          width: 50,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(14),
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                blurRadius: 10,
-                spreadRadius: 2,
-              ),
-            ],
-          ),
-          child: Material(
-            borderRadius: BorderRadius.circular(14),
-            child: InkWell(
-              borderRadius: BorderRadius.circular(14),
-              onTap: onGoogleTap,
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: SvgPicture.asset(AppImages.linkedin),
-              ),
-            ),
-            color: Colors.transparent,
-          ),
-        ),
+        // Container(
+        //   height: 50,
+        //   width: 50,
+        //   decoration: BoxDecoration(
+        //     borderRadius: BorderRadius.circular(14),
+        //     color: Colors.white,
+        //     boxShadow: [
+        //       BoxShadow(
+        //         color: Colors.black.withOpacity(0.1),
+        //         blurRadius: 10,
+        //         spreadRadius: 2,
+        //       ),
+        //     ],
+        //   ),
+        //   child: Material(
+        //     borderRadius: BorderRadius.circular(14),
+        //     child: InkWell(
+        //       borderRadius: BorderRadius.circular(14),
+        //       onTap: onGoogleTap,
+        //       child: Padding(
+        //         padding: const EdgeInsets.all(10.0),
+        //         child: SvgPicture.asset(AppImages.linkedin),
+        //       ),
+        //     ),
+        //     color: Colors.transparent,
+        //   ),
+        // ),
       ],
     );
   }

@@ -149,7 +149,7 @@ class _SignUpSecondPageState extends State<SignUpSecondPage> {
                               ),
                               (dateError)
                                   ? Text(
-                                      "Please select correct of Birth",
+                                      "You must be at least 16 years old to apply",
                                       style: TextStyle(
                                         color: Colors.red,
                                         fontSize: 13,
@@ -249,8 +249,6 @@ class _SignUpSecondPageState extends State<SignUpSecondPage> {
                               BlueGradientButton(
                                   text: "Register",
                                   onTap: () async {
-                                    print(
-                                        2022 - double.parse(d.substring(0, 4)));
                                     if (g == 'no') {
                                       setState(() {
                                         genderError = true;
@@ -278,7 +276,7 @@ class _SignUpSecondPageState extends State<SignUpSecondPage> {
                                     } else {
                                       print(
                                           "----------------ok------------------");
-                                      //value.startRegister(context);
+                                      value.startRegister(context);
                                     }
                                   }),
                             ],

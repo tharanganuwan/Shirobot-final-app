@@ -41,262 +41,265 @@ final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SizedBox(
-        height: double.infinity,
-        width: double.infinity,
-        child: SingleChildScrollView(
-          child: Stack(
-            children: [
-              SvgPicture.asset(AppImages.lines),
-              const Align(
-                alignment: Alignment.topLeft,
-                child: SafeArea(
-                  child: Padding(
-                    padding: EdgeInsets.all(20.0),
-                    child: ArrowBackButton(),
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        body: SizedBox(
+          height: double.infinity,
+          width: double.infinity,
+          child: SingleChildScrollView(
+            child: Stack(
+              children: [
+                SvgPicture.asset(AppImages.lines),
+                const Align(
+                  alignment: Alignment.topLeft,
+                  child: SafeArea(
+                    child: Padding(
+                      padding: EdgeInsets.all(20.0),
+                      child: ArrowBackButton(),
+                    ),
                   ),
                 ),
-              ),
-              SafeArea(
-                child: Align(
-                  alignment: Alignment.topCenter,
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 50),
+                SafeArea(
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 50),
 
-                      ///
-                      ///
-                      ///
-                      /// App logo
-                      ///
-                      ///
-                      ///
-                      Image.asset(
-                        AppImages.logo,
-                        height: 160,
-                        width: 160,
-                      ),
-                      const SizedBox(height: 20),
-
-                      ///
-                      ///
-                      ///
-                      /// TextFields to enter login details
-                      ///
-                      ///
-                      ///
-                      Container(
-                        width: double.maxFinite,
-                        padding: const EdgeInsets.all(20.0),
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: AppColors.boxShadow,
-                          borderRadius:
-                              BorderRadius.vertical(top: Radius.circular(34)),
+                        ///
+                        ///
+                        ///
+                        /// App logo
+                        ///
+                        ///
+                        ///
+                        Image.asset(
+                          AppImages.logo,
+                          height: 160,
+                          width: 160,
                         ),
-                        child: Form(
-                          key: _formkey,
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              const SizedBox(height: 20),
-                              const AppText(
-                                text: "Login with Email",
-                                fontSize: 26,
-                                fontWeight: FontWeight.w700,
-                              ),
-                              const SizedBox(height: 10),
-                              const AppText(
-                                text:
-                                    "Please fill the following to login into\nyour account",
-                                color: AppColors.lightGrey,
-                                fontSize: 12,
-                                textAlign: TextAlign.center,
-                              ),
-                              const SizedBox(height: 20),
-                              AppTextFormField(
-                                validator: (value) {
-                                  if (value!.isEmpty ||
-                                      !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                                          .hasMatch(value)) {
-                                    return "Please enter a valid email address";
-                                  } else {
-                                    return null;
-                                  }
-                                },
-                                controller: _email,
-                                onChanged: (value) {},
-                                hintText: "Email",
-                                icon: AppImages.email,
-                              ),
-                              const SizedBox(height: 20),
-                              AppTextFormField(
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return "please enter valid password";
-                                  }
-                                },
-                                controller: _password,
-                                onChanged: (value) {},
-                                hintText: "Password",
-                                icon: AppImages.lock,
-                                isPassword: true,
-                              ),
-                              const SizedBox(height: 10),
-                              Row(
-                                children: [
-                                  const SizedBox(width: 5.0),
-                                  AppCheckBox(
-                                    onChanged: (value) {},
-                                  ),
-                                  const SizedBox(width: 10),
-                                  const GradientText(
-                                    text: "Remember me",
-                                  )
-                                ],
-                              ),
-                              const SizedBox(height: 20),
-                              BlueGradientButton(
-                                text: "LOGIN",
-                                onTap: () async {
-                                  if (_formkey.currentState!.validate()) {
-                                    AuthController().loginUser(
-                                        context, _email.text, _password.text);
-                                  }
-                                },
-                              ),
-                              const SizedBox(height: 20),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const AppText(
-                                    text: "Forgot Password?",
-                                    color: AppColors.lightGrey,
-                                    fontSize: 12,
-                                  ),
-                                  const SizedBox(width: 10),
-                                  GestureDetector(
-                                    onTap: () {
-                                      AppRouteConfig.push(
-                                        context,
-                                        const ResetPassword(),
-                                      );
-                                    },
-                                    child: const GradientText(
-                                      text: "Reset here",
+                        const SizedBox(height: 20),
+
+                        ///
+                        ///
+                        ///
+                        /// TextFields to enter login details
+                        ///
+                        ///
+                        ///
+                        Container(
+                          width: double.maxFinite,
+                          padding: const EdgeInsets.all(20.0),
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            boxShadow: AppColors.boxShadow,
+                            borderRadius:
+                                BorderRadius.vertical(top: Radius.circular(34)),
+                          ),
+                          child: Form(
+                            key: _formkey,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                const SizedBox(height: 20),
+                                const AppText(
+                                  text: "Login with Email",
+                                  fontSize: 26,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                                const SizedBox(height: 10),
+                                const AppText(
+                                  text:
+                                      "Please fill the following to login into\nyour account",
+                                  color: AppColors.lightGrey,
+                                  fontSize: 12,
+                                  textAlign: TextAlign.center,
+                                ),
+                                const SizedBox(height: 20),
+                                AppTextFormField(
+                                  validator: (value) {
+                                    if (value!.isEmpty ||
+                                        !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                                            .hasMatch(value)) {
+                                      return "Please enter a valid email address";
+                                    } else {
+                                      return null;
+                                    }
+                                  },
+                                  controller: _email,
+                                  onChanged: (value) {},
+                                  hintText: "Email",
+                                  icon: AppImages.email,
+                                ),
+                                const SizedBox(height: 20),
+                                AppTextFormField(
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return "please enter valid password";
+                                    }
+                                  },
+                                  controller: _password,
+                                  onChanged: (value) {},
+                                  hintText: "Password",
+                                  icon: AppImages.lock,
+                                  isPassword: true,
+                                ),
+                                const SizedBox(height: 10),
+                                Row(
+                                  children: [
+                                    const SizedBox(width: 5.0),
+                                    AppCheckBox(
+                                      onChanged: (value) {},
+                                    ),
+                                    const SizedBox(width: 10),
+                                    const GradientText(
+                                      text: "Remember me",
+                                    )
+                                  ],
+                                ),
+                                const SizedBox(height: 20),
+                                BlueGradientButton(
+                                  text: "LOGIN",
+                                  onTap: () async {
+                                    if (_formkey.currentState!.validate()) {
+                                      AuthController().loginUser(
+                                          context, _email.text, _password.text);
+                                    }
+                                  },
+                                ),
+                                const SizedBox(height: 20),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const AppText(
+                                      text: "Forgot Password?",
+                                      color: AppColors.lightGrey,
                                       fontSize: 12,
                                     ),
-                                  )
-                                ],
-                              ),
+                                    const SizedBox(width: 10),
+                                    GestureDetector(
+                                      onTap: () {
+                                        AppRouteConfig.push(
+                                          context,
+                                          const ResetPassword(),
+                                        );
+                                      },
+                                      child: const GradientText(
+                                        text: "Reset here",
+                                        fontSize: 12,
+                                      ),
+                                    )
+                                  ],
+                                ),
 
-                              ///
-                              ///
-                              /// Divider with OR
-                              ///
-                              ///
-                              const SizedBox(height: 20),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
-                                  Expanded(
-                                    child: Divider(
-                                      color: AppColors.lightGrey,
-                                      thickness: 0.2,
+                                ///
+                                ///
+                                /// Divider with OR
+                                ///
+                                ///
+                                const SizedBox(height: 20),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: const [
+                                    Expanded(
+                                      child: Divider(
+                                        color: AppColors.lightGrey,
+                                        thickness: 0.2,
+                                      ),
                                     ),
-                                  ),
-                                  SizedBox(width: 10),
-                                  AppText(
-                                    text: "OR",
-                                    color: AppColors.lightGrey,
-                                    fontSize: 12,
-                                  ),
-                                  SizedBox(width: 10),
-                                  Expanded(
-                                    child: Divider(
+                                    SizedBox(width: 10),
+                                    AppText(
+                                      text: "OR",
                                       color: AppColors.lightGrey,
-                                      thickness: 0.2,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 20),
-
-                              ///
-                              ///
-                              ///
-                              /// Social logins
-                              ///
-                              ///
-                              ///
-
-                              SocialButton(
-                                onGoogleTap: () {
-                                  Provider.of<RegistrationProvider>(context,
-                                          listen: false)
-                                      .googleAuth(context);
-                                },
-                                onFacebookTap: () {
-                                  print("Facebook");
-                                  // Provider.of<RegistrationProvider>(context,
-                                  //         listen: false)
-                                  //     .faceBookAuth();
-                                },
-                                onLinkedInTap: () {
-                                  print("Linedin");
-                                },
-                              ),
-                              const SizedBox(height: 20),
-
-                              // ElevatedButton(
-                              //     onPressed: () {
-                              //       print("object");
-                              //       Provider.of<RegistrationProvider>(context,
-                              //               listen: false)
-                              //           .faceBookAuth();
-                              //     },
-                              //     child: Text("Click")),
-
-                              // const SizedBox(height: 20),
-
-                              ///
-                              ///
-                              ///
-                              /// Signup
-                              ///
-                              ///
-                              ///
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const AppText(
-                                    text: "Don't Have Account?",
-                                    color: AppColors.lightGrey,
-                                    fontSize: 12,
-                                  ),
-                                  const SizedBox(width: 10),
-                                  GestureDetector(
-                                    onTap: () {
-                                      AppRouteConfig.push(
-                                          context, const SignUpPage());
-                                    },
-                                    child: const GradientText(
-                                      text: "Regsiter Now",
                                       fontSize: 12,
                                     ),
-                                  )
-                                ],
-                              ),
-                            ],
+                                    SizedBox(width: 10),
+                                    Expanded(
+                                      child: Divider(
+                                        color: AppColors.lightGrey,
+                                        thickness: 0.2,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 20),
+
+                                ///
+                                ///
+                                ///
+                                /// Social logins
+                                ///
+                                ///
+                                ///
+
+                                SocialButton(
+                                  onGoogleTap: () {
+                                    Provider.of<RegistrationProvider>(context,
+                                            listen: false)
+                                        .googleAuth(context);
+                                  },
+                                  onFacebookTap: () {
+                                    print("Facebook");
+                                    // Provider.of<RegistrationProvider>(context,
+                                    //         listen: false)
+                                    //     .faceBookAuth();
+                                  },
+                                  onLinkedInTap: () {
+                                    print("Linedin");
+                                  },
+                                ),
+                                const SizedBox(height: 20),
+
+                                // ElevatedButton(
+                                //     onPressed: () {
+                                //       print("object");
+                                //       Provider.of<RegistrationProvider>(context,
+                                //               listen: false)
+                                //           .faceBookAuth();
+                                //     },
+                                //     child: Text("Click")),
+
+                                // const SizedBox(height: 20),
+
+                                ///
+                                ///
+                                ///
+                                /// Signup
+                                ///
+                                ///
+                                ///
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const AppText(
+                                      text: "Don't Have Account?",
+                                      color: AppColors.lightGrey,
+                                      fontSize: 12,
+                                    ),
+                                    const SizedBox(width: 10),
+                                    GestureDetector(
+                                      onTap: () {
+                                        AppRouteConfig.push(
+                                            context, const SignUpPage());
+                                      },
+                                      child: const GradientText(
+                                        text: "Regsiter Now",
+                                        fontSize: 12,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       ),
