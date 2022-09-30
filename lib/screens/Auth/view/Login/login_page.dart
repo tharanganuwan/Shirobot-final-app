@@ -1,11 +1,8 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-import 'package:shiro_bot/components/custom_dialogBox.dart';
 import 'package:shiro_bot/config/app_route_config.dart';
 import 'package:shiro_bot/constants/app_colors.dart';
 import 'package:shiro_bot/constants/app_images.dart';
@@ -13,8 +10,6 @@ import 'package:shiro_bot/screens/Auth/controller/auth_controller.dart';
 import 'package:shiro_bot/screens/Auth/providers/registration_provider.dart';
 import 'package:shiro_bot/screens/Auth/view/ResetPassword/reset_password.dart';
 import 'package:shiro_bot/screens/Auth/view/SIgnup/signup_page.dart';
-import 'package:shiro_bot/screens/Home/view/home_page.dart';
-import 'package:shiro_bot/utils/util_function.dart';
 import 'package:shiro_bot/widgets/app_text.dart';
 import 'package:shiro_bot/widgets/app_text_form.dart';
 import 'package:shiro_bot/widgets/arrow_back_button.dart';
@@ -39,6 +34,13 @@ final _password = TextEditingController();
 final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
 class _LoginPageState extends State<LoginPage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    _email.text = "";
+    _password.text = "";
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(

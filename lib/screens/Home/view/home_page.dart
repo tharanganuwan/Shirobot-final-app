@@ -26,6 +26,10 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    String a = Provider.of<userProvider>(context, listen: false).cuserName;
+    print("++++++++++++++");
+    print(a);
+    print("+++++++++++++++++");
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Future.delayed(const Duration(seconds: 1), () async {
         AppDialogs.showBluetoothPermision(context);
@@ -68,7 +72,8 @@ class _HomePageState extends State<HomePage> {
                     builder: (context, value, child) {
                       return AppText(
                         textAlign: TextAlign.center,
-                        text: "Welcome ", //${model.firstName}",
+                        text:
+                            "Welcome ${value.cuserName}!", //${model.firstName}",
                         fontSize: 26,
                         fontWeight: FontWeight.w700,
                       );

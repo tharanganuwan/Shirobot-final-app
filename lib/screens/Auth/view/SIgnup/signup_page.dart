@@ -42,6 +42,21 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   void initState() {
     // TODO: implement initState
+    Provider.of<RegistrationProvider>(context, listen: false)
+        .firstnameController
+        .text = '';
+    Provider.of<RegistrationProvider>(context, listen: false)
+        .lastnameController
+        .text = '';
+    Provider.of<RegistrationProvider>(context, listen: false)
+        .emailController
+        .text = '';
+    Provider.of<RegistrationProvider>(context, listen: false)
+        .passwordController
+        .text = '';
+    Provider.of<RegistrationProvider>(context, listen: false)
+        .confirmpasswordController
+        .text = '';
     super.initState();
     myController.addListener(() {
       setState(() {

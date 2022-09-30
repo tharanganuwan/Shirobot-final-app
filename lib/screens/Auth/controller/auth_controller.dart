@@ -118,7 +118,7 @@ class AuthController {
 //save data data base
   Future<void> savedata(String? firstname, String? lastname, String? email,
       UserCredential userCredential) async {
-    userProvider().userName = firstname!;
+    userProvider().setUserName(firstname!);
     if (userCredential.user!.uid.isNotEmpty) {
       await DatabaseController()
           .saveUserData(firstname, lastname!, email!, userCredential.user!.uid);
@@ -132,7 +132,14 @@ class AuthController {
       UserCredential usercredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       if (usercredential.user != null) {
-        UtilFunction.navigateTo(context, HomePage());
+        String idd = usercredential.user!.uid;
+        await userProvider().getUserDate(idd);
+        await Future.delayed(
+          Duration(seconds: 2),
+          () {
+            UtilFunction.navigateTo(context, HomePage());
+          },
+        );
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {

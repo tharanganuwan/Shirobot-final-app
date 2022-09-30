@@ -13,7 +13,13 @@ class userProvider extends ChangeNotifier {
   final DatabaseController _databaseController = DatabaseController();
   late UserModel _userModel;
   UserModel get userModel => _userModel;
-  String userName = "User";
+  var _userName = "User!";
+  void setUserName(String name) {
+    _userName = name;
+    notifyListeners();
+  }
+
+  String get cuserName => _userName;
 
   clearModel() {
     _userModel.email = '';
@@ -42,14 +48,27 @@ class userProvider extends ChangeNotifier {
             (route) => false);
         //UtilFunction.navigateTo(context, HomePage());
 
-        await fetchSingleUser(user.uid);
-        userName = _userModel.firstName;
+        // await fetchSingleUser(user.uid);
+        // userName = _userModel.firstName;
+        await getUserDate(user.uid);
       }
     });
   }
 
+  Future<void> getUserDate(String id) async {
+    await fetchSingleUser(id);
+    _userName = _userModel.firstName;
+    notifyListeners();
+  }
+
   Future<void> fetchSingleUser(String id) async {
     _userModel = (await _databaseController.getuserData(id))!;
+    print("=======================");
+    _userName = _userModel.firstName;
+    print(_userModel.firstName);
+    print("=======================================");
+    print(cuserName);
+    print("=======================");
     notifyListeners();
   }
 }
