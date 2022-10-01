@@ -4,7 +4,10 @@ import 'package:provider/provider.dart';
 import 'package:shiro_bot/config/app_route_config.dart';
 import 'package:shiro_bot/constants/app_colors.dart';
 import 'package:shiro_bot/screens/Auth/providers/registration_provider.dart';
+import 'package:shiro_bot/screens/Auth/providers/user_provider.dart';
+import 'package:shiro_bot/screens/Auth/view/Login/login_page.dart';
 import 'package:shiro_bot/screens/Auth/view/auth_page.dart';
+import 'package:shiro_bot/utils/util_function.dart';
 import 'package:shiro_bot/widgets/app_text.dart';
 
 class LogoutButton extends StatelessWidget {
@@ -16,6 +19,12 @@ class LogoutButton extends StatelessWidget {
       onTap: () {
         Provider.of<RegistrationProvider>(context, listen: false)
             .logout(context);
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => LoginPage()),
+            (route) => false);
+
+        //userProvider().clearModel();
       },
       child: Column(
         children: [

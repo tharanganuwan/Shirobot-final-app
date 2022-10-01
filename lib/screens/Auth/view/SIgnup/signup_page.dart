@@ -42,6 +42,21 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   void initState() {
     // TODO: implement initState
+    Provider.of<RegistrationProvider>(context, listen: false)
+        .firstnameController
+        .text = '';
+    Provider.of<RegistrationProvider>(context, listen: false)
+        .lastnameController
+        .text = '';
+    Provider.of<RegistrationProvider>(context, listen: false)
+        .emailController
+        .text = '';
+    Provider.of<RegistrationProvider>(context, listen: false)
+        .passwordController
+        .text = '';
+    Provider.of<RegistrationProvider>(context, listen: false)
+        .confirmpasswordController
+        .text = '';
     super.initState();
     myController.addListener(() {
       setState(() {
@@ -187,10 +202,15 @@ class _SignUpPageState extends State<SignUpPage> {
                                     const SizedBox(height: 20),
                                     AppTextFormField(
                                       validator: (value) {
+                                        final validCharacters =
+                                            RegExp(r'^[a-zA-Z0-9]+$');
                                         if (value!.isEmpty) {
                                           return "Please enter password";
-                                        } else if (value.length < 8) {
-                                          return "Must be 8 or more characters";
+                                        } else if (value.length < 6) {
+                                          return "Must be 6 or more characters";
+                                        } else if (!validCharacters
+                                            .hasMatch(value)) {
+                                          return "password must be alphanumeric";
                                         } else {
                                           return null;
                                         }
@@ -209,8 +229,6 @@ class _SignUpPageState extends State<SignUpPage> {
                                       validator: (value) {
                                         if (value!.isEmpty) {
                                           return "Please enter password";
-                                        } else if (value.length < 8) {
-                                          return "Must be 8 or more characters";
                                         } else if (SignUpPage
                                                 ._authModel.confirmPassword !=
                                             SignUpPage._authModel.password) {

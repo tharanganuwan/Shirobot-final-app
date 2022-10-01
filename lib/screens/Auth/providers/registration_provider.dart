@@ -93,7 +93,7 @@ class RegistrationProvider extends ChangeNotifier {
             _dateOfBirth.toString(),
             _country.toString(),
             _phoneNumber.toString());
-        userProvider().userName = _firstname.text;
+        userProvider().setUserName(_firstname.text);
         setLoading();
       } else {
         setLoading();
@@ -148,10 +148,8 @@ class RegistrationProvider extends ChangeNotifier {
   late UserCredential _userCredential;
 //google sign in function
   Future<void> googleAuth(BuildContext context) async {
-    String user;
     try {
       _userCredential = await _authController.signInWithGoogle();
-      user = _userCredential.user!.displayName!;
 
       _authController.savedata(
         _userCredential.user?.displayName,
@@ -160,6 +158,8 @@ class RegistrationProvider extends ChangeNotifier {
         _userCredential,
       );
 
+      await userProvider().getUserDate(_userCredential.user!.uid);
+
       AwesomeDialog(
         context: context,
         dialogType: DialogType.SUCCES,
@@ -167,7 +167,7 @@ class RegistrationProvider extends ChangeNotifier {
         title: "Success",
         desc: "Login Success",
         btnOkOnPress: () {
-          UtilFunction.navigateTo(context, HomePage());
+          // UtilFunction.navigateTo(context, HomePage());
         },
       ).show();
 
@@ -229,16 +229,16 @@ class RegistrationProvider extends ChangeNotifier {
     await FirebaseAuth.instance.signOut();
     //final GoogleSignInAccount? googleUser = await GoogleSignIn().disconnect();
 
-    UtilFunction.navigateTo(context, AuthPage());
+    // UtilFunction.navigateTo(context, AuthPage());
     final GoogleSignIn googleSignIn = GoogleSignIn();
 
     try {
       if (!kIsWeb) {
         await googleSignIn.signOut();
-        UtilFunction.navigateTo(context, AuthPage());
+        // UtilFunction.navigateTo(context, AuthPage());
       }
       await FirebaseAuth.instance.signOut();
-      UtilFunction.navigateTo(context, AuthPage());
+      // UtilFunction.navigateTo(context, AuthPage());
     } catch (e) {
       // ScaffoldMessenger.of(context).showSnackBar(
       //   Auth.customSnackBar(

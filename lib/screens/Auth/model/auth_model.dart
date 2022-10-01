@@ -24,7 +24,7 @@ class AuthModel {
     this.password = '',
     this.confirmPassword = '',
     this.country = '',
-    this.countryCode = '',
+    this.countryCode = "Canada",
     this.isTermsAccepted = false,
     this.isLoading = false,
     this.isAuth = false,

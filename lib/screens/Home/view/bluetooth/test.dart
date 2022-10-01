@@ -67,7 +67,7 @@ class FindDevicesScreen extends StatelessWidget {
                               builder: (c, snapshot) {
                                 if (snapshot.data ==
                                     BluetoothDeviceState.connected) {
-                                  return RaisedButton(
+                                  return ElevatedButton(
                                     child: Text('OPEN'),
                                     onPressed: () => Navigator.of(context).push(
                                         MaterialPageRoute(
@@ -203,7 +203,7 @@ class DeviceScreen extends StatelessWidget {
                   text = snapshot.data.toString().substring(21).toUpperCase();
                   break;
               }
-              return FlatButton(
+              return ElevatedButton(
                   onPressed: onPressed,
                   child: Text(
                     text,
