@@ -235,23 +235,24 @@ class _LoginPageState extends State<LoginPage> {
                                 ///
                                 ///
 
-                                SocialButton(
-                                  onGoogleTap: () {
-                                    Provider.of<RegistrationProvider>(context,
-                                            listen: false)
-                                        .googleAuth(context);
-                                  },
-                                  onFacebookTap: () {
-                                    print("Facebook");
-                                    // Provider.of<RegistrationProvider>(context,
-                                    //         listen: false)
-                                    //     .faceBookAuth();
-                                  },
-                                  onLinkedInTap: () {
-                                    print("Linedin");
-                                  },
-                                ),
-                                const SizedBox(height: 20),
+                              SocialButton(
+                                onGoogleTap: () {
+                                  Provider.of<RegistrationProvider>(context,
+                                          listen: false)
+                                      .googleAuth(context);
+                                },
+                                onFacebookTap: () {
+                                  print("Facebook");
+                                  Provider.of<RegistrationProvider>(context,
+                                          listen: false)
+                                      .faceBookAuth();
+                                },
+                                onLinkedInTap: () {
+                                  print("Linedin");
+                                },
+                              ),
+
+                              const SizedBox(height: 20),
 
                                 // ElevatedButton(
                                 //     onPressed: () {

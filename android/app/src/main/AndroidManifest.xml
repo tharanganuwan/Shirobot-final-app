@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.shiro_bot">
+    package="com.shirobot.shiro_bott">
+    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.BLUETOOTH" />  
 	<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />  
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
@@ -11,6 +12,10 @@
         android:label="Shirobot"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+<!--for fb login-->
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+<meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -37,11 +42,8 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-<!--
-<meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
-<meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
- -->
-    <activity android:name="com.facebook.FacebookActivity"
+<!-- Facebook-->
+    <!-- <activity android:name="com.shirobot.shiro_bott"
         android:configChanges=
                 "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
         android:label="@string/app_name" />
@@ -54,7 +56,7 @@
             <category android:name="android.intent.category.BROWSABLE" />
             <data android:scheme="@string/fb_login_protocol_scheme" />
         </intent-filter>
-    </activity>
+    </activity> -->
 
     
     </application>
