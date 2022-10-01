@@ -69,7 +69,7 @@ class SocialButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(14),
             child: InkWell(
               borderRadius: BorderRadius.circular(14),
-              onTap: onGoogleTap,
+              onTap: onFacebookTap,
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: SvgPicture.asset(AppImages.facebook),
@@ -100,7 +100,7 @@ class SocialButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(14),
             child: InkWell(
               borderRadius: BorderRadius.circular(14),
-              onTap: onGoogleTap,
+              onTap: onLinkedInTap,
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: SvgPicture.asset(AppImages.linkedin),

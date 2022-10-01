@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
@@ -187,7 +188,15 @@ class RegistrationProvider extends ChangeNotifier {
 //facebook signin
   Future<void> faceBookAuth() async {
     try {
-      _userCredential = await _authController.signInWithFacebook();
+      // Trigger the sign-in flow
+      final LoginResult loginResult = await FacebookAuth.instance.login();
+
+      // Create a credential from the access token
+      final OAuthCredential facebookAuthCredential =
+          FacebookAuthProvider.credential(loginResult.accessToken!.token);
+
+      // Once signed in, return the UserCredential
+      FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
       Logger().i(_userCredential);
       notifyListeners();
     } catch (e) {

@@ -239,14 +239,15 @@ class _LoginPageState extends State<LoginPage> {
                                 },
                                 onFacebookTap: () {
                                   print("Facebook");
-                                  // Provider.of<RegistrationProvider>(context,
-                                  //         listen: false)
-                                  //     .faceBookAuth();
+                                  Provider.of<RegistrationProvider>(context,
+                                          listen: false)
+                                      .faceBookAuth();
                                 },
                                 onLinkedInTap: () {
                                   print("Linedin");
                                 },
                               ),
+
                               const SizedBox(height: 20),
 
                               // ElevatedButton(
