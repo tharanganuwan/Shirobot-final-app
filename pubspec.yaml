@@ -49,6 +49,7 @@ dependencies:
   flutter_facebook_auth: '^4.4.0+1'
   slide_countdown: ^0.2.8
   change_app_package_name: ^1.1.0
+  http: any
 
 
 dev_dependencies:
